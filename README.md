@@ -52,13 +52,13 @@ Inserted 5 users into the database
 Disconnected from database
 ```
 
-Switch to the main branch:
+# Switch to the main branch:
 `git checkout main`
 
-Pull the latest changes from the remote main branch (if applicable):
+# Pull the latest changes from the remote main branch (if applicable):
 `git pull origin main`
 
-Merge the dev branch into main:
+# Merge the dev branch into main:
 `git merge HX732-14-hisky`
 
 Resolve any merge conflicts (if they occur):
@@ -67,9 +67,9 @@ Edit the files to resolve conflicts.
 Mark conflicts as resolved:
 `git add <file>`
 
-Commit the merge (if conflicts were resolved manually):
+# Commit the merge (if conflicts were resolved manually):
 `git commit`
 
-Push the updated main branch to the remote repository:
+# Push the updated main branch to the remote repository:
 `git push origin main`
 
