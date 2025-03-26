@@ -11,3 +11,5 @@ Start the server
 - **User Registration**: Allows users to register with a username, password, email, and other details.
 - **Protected Routes**: Use JWT to protect certain routes, ensuring only authorized users can access them.
 
+## API Interface documentation
+- http://localhost:5000/api-docs
