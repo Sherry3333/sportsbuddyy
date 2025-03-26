@@ -1,6 +1,5 @@
 import express from "express";
-import User from "../models/User.js";
-import jwt from "jsonwebtoken";
+import User from "../data/UserSchema.js";
 const router = express.Router();
 
 
@@ -51,8 +50,6 @@ const router = express.Router();
  *         description: Internal server error
  */
 router.post("/register", async (req, res) => {
-    console.log("Register API hit");
-    res.send("register");
    try {
      const { username, password, gender, sports, level, email } = req.body;
 
