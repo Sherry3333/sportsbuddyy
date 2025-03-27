@@ -1,0 +1,105 @@
+.login-container {
+  display: flex;
+  height: 100vh; /* 让容器占满整个视口高度 */
+}
+
+.login-form {
+  flex: 1; /* 左侧表单占据一半空间 */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.login-form h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.login-form p {
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.login-form form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.login-form input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.remember-me input {
+  margin-right: 0.5rem;
+}
+
+.sign-in-button {
+  padding: 0.75rem;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sign-in-button:hover {
+  background-color: #5a54d1;
+}
+
+.footer {
+  margin-top: 1rem;
+}
+
+.footer a {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer .register-button {
+  background: none;
+  border: none;
+  color: #6c63ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.footer .register-button:hover {
+  text-decoration: none;
+}
+
+.login-image {
+  flex: 1; /* 右侧图片区域占据另一半空间 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 防止图片溢出 */
+}
+
+.login-image img {
+  width: 100%; /* 图片宽度填满父容器 */
+  height: 100%; /* 图片高度填满父容器 */
+  object-fit: cover; /* 确保图片按比例填充整个区域 */
+}
