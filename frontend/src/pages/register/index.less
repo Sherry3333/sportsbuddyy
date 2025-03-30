@@ -11,7 +11,8 @@
 
 /* 顶部 Logo header（Logo 组件） */
 .register-header {
-  padding: 20px 60px;
+  padding-left: 35px;
+  padding-top: 15px;
 }
 
 /* 页面中间区域（RegisterPage） */
@@ -20,8 +21,8 @@
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 0 60px;
-  gap: 90px;
+  padding: 0 40px;
+  gap: 60px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -30,12 +31,12 @@
 
   /* 表单区域（RegisterForm） */
   .form-header {
-    margin-bottom: 24px;
+    margin-bottom: 0px;
 
     h2 {
       font-size: 28px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 1px;
     }
   }
 
@@ -78,7 +79,7 @@
 }
 
 .logo-img {
-  width: 100%;
+  width: 60%;
   height: auto;
   display: block;
 }
@@ -128,4 +129,8 @@
     font-weight: bold;
     cursor: pointer;
   }
+}
+html,
+body {
+  overflow: hidden;
 }

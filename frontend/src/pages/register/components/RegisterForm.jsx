@@ -30,7 +30,7 @@ const RegisterForm = () => {
   return (
     <Form layout="vertical" onFinish={onFinish} className="custom-form">
       <div className="form-header">
-        <h2>Sign up to find your buddies!</h2>
+        <h2>Sign up</h2>
       </div>
 
       <Form.Item label="Name" name="username" rules={[{ required: true }]}>
