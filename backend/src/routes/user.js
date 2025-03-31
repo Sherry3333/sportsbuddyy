@@ -3,41 +3,9 @@ import auth from '../middleware/auth.js';
 import User from '../data/UserSchema.js';
 import jwt from "jsonwebtoken"; 
 
+const router = express.Router();
 const JWT_SECRET = "your_secret_key"; 
 
-const router = express.Router();
-
-/**
- * @swagger
- * /api/user/profile:
- *   get:
- *     summary: Get the profile of the authenticated user
- *     tags: 
- *       - User
- *     security:
- *       - bearerAuth: []  # Requires JWT token for authentication
- *     responses:
- *       200:
- *         description: Successfully retrieved user profile
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   description: The unique ID of the user
- *                 username:
- *                   type: string
- *                   description: The username of the user
- *                 email:
- *                   type: string
- *                   description: The email of the user
- *       401:
- *         description: Unauthorized - Invalid or missing token
- *       500:
- *         description: Internal server error
- */
 router.get('/profile', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId); 
@@ -46,6 +14,9 @@ router.get('/profile', auth, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
 
 
 
@@ -63,10 +34,10 @@ router.get('/profile', auth, async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               email:
  *                 type: string
- *                 description: The username of the user
- *                 example: johndoe
+ *                 description: The email of the user
+ *                 example: johndoe@example.com
  *               password:
  *                 type: string
  *                 description: The password of the user
@@ -81,12 +52,12 @@ router.get('/profile', auth, async (req, res) => {
  */
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // Check if the user exists
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user || user.password !== password) {
-      return res.status(400).json({ message: "Invalid username or password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     // Generate a JWT token

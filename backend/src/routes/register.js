@@ -24,7 +24,7 @@ const router = express.Router();
  *               password:
  *                 type: string
  *                 description: The password of the user
- *                 example: password123
+ *                 example: 123456
  *               gender:    
  *                 type: string
  *                 description: The gender of the user
@@ -40,7 +40,7 @@ const router = express.Router();
  *               email:
  *                 type: string
  *                 description: The email of the user
- *                 example: johndoe@example.com
+ *                 example: test@gmail.com
  *     responses:
  *       201:
  *         description: User created successfully
