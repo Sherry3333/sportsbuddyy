@@ -1,21 +1,38 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import './login.css'; // 确保有一个 CSS 文件来定义样式
-import loginImage from '../../assets/img/login_img_rightside.jpeg'; // 导入图片
+import {userStore} from '@/domain/user/store/user.store';
+import axios from 'axios'; // 导入 axios
+import './login.css';
+import loginImage from '../../assets/img/login_img_rightside.jpeg';
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const { email, password } = values;
 
-    // 模拟登录逻辑
-    if (email === 'test@example.com' && password === 'password') {
-      alert('Login successful!');
-      navigate('/'); // 登录成功后跳转到主页
-    } else {
-      alert('Invalid email or password');
+    try {
+      // 调用后端登录接口
+      const response = await axios.post('/api/user/login', { email, password });
+
+      // 假设后端返回用户信息
+      const { data } = response;
+      message.success('Login successful!');
+
+      // 保存用户信息到 localStorage 或全局状态管理
+      localStorage.setItem('userId', data.userId);
+      localStorage.setItem('username', data.username);
+
+      // 跳转到主页
+      navigate('/');
+    } catch (error) {
+      // 处理错误
+      if (error.response && error.response.status === 401) {
+        message.error('Invalid email or password');
+      } else {
+        message.error('An error occurred. Please try again later.');
+      }
     }
   };
 

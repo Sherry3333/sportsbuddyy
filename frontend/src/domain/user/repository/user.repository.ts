@@ -6,3 +6,7 @@ export const getUserInfo = () => {
     id:1
   })
 }
+
+export const checkUserLogin = (params) => {
+  return http.post('/api/user/login',params)
+}
