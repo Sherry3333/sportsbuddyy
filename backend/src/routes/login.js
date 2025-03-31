@@ -1,9 +1,8 @@
 import express from "express";
-import jwt from "jsonwebtoken"; // 引入jsonwebtoken库
-import User from "../data/UserSchema.js";
+import jwt from "jsonwebtoken"; 
 
 const router = express.Router();
-const JWT_SECRET = "your_secret_key"; // 替换为更安全的密钥
+const JWT_SECRET = "your_secret_key"; 
 
 /**
  * @swagger
@@ -47,9 +46,9 @@ router.post("/login", async (req, res) => {
 
     // Generate a JWT token
     const token = jwt.sign({ userId: user._id, username: user.username }, JWT_SECRET, {
-      expiresIn: "1h", // Token有效期为1小时
+      expiresIn: "1h", 
     });
-
+ 
     // Response with token
     res.status(200).json({ 
       message: "Login successful", 
