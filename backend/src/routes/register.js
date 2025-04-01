@@ -42,7 +42,7 @@ const router = express.Router();
  *                 description: The email of the user
  *                 example: test@gmail.com
  *     responses:
- *       201:
+ *       200:
  *         description: User created successfully
  *       400:
  *         description: Username already exists
@@ -56,17 +56,17 @@ router.post("/register", async (req, res) => {
      // check if username already exists
      const existingUser = await User.findOne({ username });
      if (existingUser) {
-       return res.status(400).json({ message: "Username already exists" });
+      return res.apiSuccess(null, "Username already exists", 400);
      }
 
      // create new user 
      const user = new User({ username, password, gender, sports, level, email });
      await user.save();
 
-     res.status(201).json({ message: "user created successfully" });
+     res.apiSuccess(null,"user created successfully", 200);
    } catch (error) {
      console.log(error);
-     res.status(500).json({ message: "Internal server error" });
+     res.apiError("Internal server error", 500);
    }
 });
 

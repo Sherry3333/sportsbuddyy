@@ -4,12 +4,14 @@ import cors from "cors";
 import mongoose from "mongoose";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import apiRespose from "./middleware/apiResponse.js";
 
 const Port = process.env.PORT ?? 5000; 
 
 const server = express();
 server.use(cors()); //allow cross-origin requests
 server.use(express.json()); //parse json requests
+server.use(apiRespose); // Make all APIs use res.apiSuccess and res.apiError
 
 
 const swaggerOptions = {

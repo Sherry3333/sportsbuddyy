@@ -66,14 +66,10 @@ router.post("/login", async (req, res) => {
     });
  
     // Response with token
-    res.status(200).json({ 
-      message: "Login successful", 
-      userId: user._id, 
-      token 
-    });
+    res.apiSuccess(token,"Login successful", 200);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.apiError("Internal server error", 500)
   }
 });
 
