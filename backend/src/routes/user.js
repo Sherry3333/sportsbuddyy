@@ -6,19 +6,50 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 const JWT_SECRET = "your_secret_key"; 
 
-router.get('/profile', auth, async (req, res) => {
+/**
+ * @swagger
+ * /api/user/{id}:
+ *   get:
+ *     summary: Retrieve a user by ID
+ *     description: Retrieve a specific user from the database using their ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the user to retrieve.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A user object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   description: The user ID.
+ *                   example: 12345
+ *                 username:
+ *                   type: string
+ *                   description: The user's username.
+ *                   example: johndoe
+ *       404:
+ *         description: User not found.
+ */
+router.get('user/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const user = await User.findById(req.user.userId); 
-    res.json(user);    
-  }catch(error) {
-    res.status(500).json({ error: error.message });
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
   }
 });
-
-
-
-
-
 
 /**
  * @swagger
@@ -71,6 +102,73 @@ router.post("/login", async (req, res) => {
     console.log(error);
     res.apiError("Internal server error", 500)
   }
+});
+
+/**
+ * @swagger
+ * /api/user/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: 
+ *       - User  
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The username of the user
+ *                 example: johndoe
+ *               password:
+ *                 type: string
+ *                 description: The password of the user
+ *                 example: 123456
+ *               gender:    
+ *                 type: string
+ *                 description: The gender of the user
+ *                 example: male
+ *               sports:
+ *                 type: string
+ *                 description: The sports of the user
+ *                 example: running
+ *               level:
+ *                 type: string
+ *                 description: The level of the user
+ *                 example: Level_1
+ *               email:
+ *                 type: string
+ *                 description: The email of the user
+ *                 example: test@gmail.com
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *       400:
+ *         description: Username already exists
+ *       500:
+ *         description: Internal server error
+ */
+router.post("/register", async (req, res) => {
+   try {
+     const { username, password, gender, sports, level, email } = req.body;
+
+     // check if username already exists
+     const existingUser = await User.findOne({ username });
+     if (existingUser) {
+      return res.apiSuccess(null, "Username already exists", 400);
+     }
+
+     // create new user 
+     const user = new User({ username, password, gender, sports, level, email });
+     await user.save();
+
+     res.apiSuccess(null,"user created successfully", 200);
+   } catch (error) {
+     console.log(error);
+     res.apiError("Internal server error", 500);
+   }
 });
 
 export default router;
