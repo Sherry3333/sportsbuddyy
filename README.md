@@ -54,8 +54,13 @@ Mark conflicts as resolved:
 ## Commit the merge (if conflicts were resolved manually):
 `git commit -m "Merge from main"`
 
-# Push the updated main branch to the remote repository:
-`git push origin main`
+# Create a new branch from main
+`git checkout main`
+`git pull origin main`
+`git checkout -b HX732-15.jinbo`
+
+# Push the updated dev branch to the remote repository:
+`git push origin HX732-15.jinbo`
 
 # Delete your local branch
 `git branch -d HX732-15.jinbo`
