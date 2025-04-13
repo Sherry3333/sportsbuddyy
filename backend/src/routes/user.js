@@ -38,7 +38,7 @@ const JWT_SECRET = "your_secret_key";
  *       404:
  *         description: User not found.
  */
-router.get('user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
