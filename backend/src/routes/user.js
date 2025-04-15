@@ -4,7 +4,6 @@ import User from '../data/UserSchema.js';
 import jwt from "jsonwebtoken"; 
 
 const router = express.Router();
-const JWT_SECRET = "your_secret_key"; 
 
 /**
  * @swagger
@@ -92,7 +91,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id, username: user.username }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, {
       expiresIn: "1h", 
     });
  

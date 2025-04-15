@@ -27,6 +27,20 @@ const swaggerOptions = {
           url: "http://localhost:5000",
         },
       ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          }
+        }
+      },
+      security: [
+        {
+          bearerAuth: [],
+        }
+      ],
     },
     apis: ["src/routes/*.js"], // specify API route file path, it doesn't work with ["./routes/*.js"],because the working directory of swagger-jsdoc is the root directory
   };

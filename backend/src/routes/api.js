@@ -2,6 +2,9 @@ import express from 'express';
 const router = express.Router();
 
 import user from "./user.js"
-router.use('/user', user);  // All interfaces need to be authenticated
+router.use('/user', user);  
+
+import team from "./team.js"
+router.use('/team', team);
 
 export default router;
