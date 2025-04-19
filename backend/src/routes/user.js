@@ -11,8 +11,6 @@ const router = express.Router();
  *   get:
  *     summary: Retrieve a user by ID
  *     description: Retrieve a specific user from the database using their ID.
- *     tags: 
- *       - User  
  *     parameters:
  *       - in: path
  *         name: id
