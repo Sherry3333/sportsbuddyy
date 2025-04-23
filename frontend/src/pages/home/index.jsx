@@ -1,4 +1,4 @@
-import LeftSetting from "./leftSetting";
+import LeftSideCompo from "./leftSetting/LeftSideCompo";
 import { useEffect } from "react";
 import { Button } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
@@ -10,7 +10,7 @@ const HomePage = () => {
   },[])
   return(
     <div >
-      <LeftSetting/>
+      <LeftSideCompo/>
       <Button type="primary">test button</Button>
     </div>
     

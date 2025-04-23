@@ -5,3 +5,68 @@
     background-color: @primary-color;
   }
 }
+
+/* 左侧容器样式 */
+.leftSide {
+  width: 250px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 标题样式 */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #702dff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 运动列表样式 */
+.sportList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* 让列表宽度占满容器 */
+}
+
+.sportItem {
+  font-size: 18px;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: left; /* 左对齐文本 */
+  margin-bottom: 10px; /* 列表项之间的间距 */
+
+  &:hover {
+    background-color: #702dff;
+    color: #fff;
+  }
+}
+
+/* 底部登出样式 */
+.footer {
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.logout {
+  font-size: 16px;
+  color: #ff4d4f;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+
+  &:hover {
+    color: #ff7875;
+  }
+}
