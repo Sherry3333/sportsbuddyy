@@ -1,4 +1,4 @@
-import LeftSetting from "./leftSetting";
+import LeftSetting from "./leftSetting/LeftSideCompo";
 import RightProfile from "./rightProfile";
 import "./index.less";
 
