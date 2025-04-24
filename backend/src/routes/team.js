@@ -1,9 +1,9 @@
-import express from 'express';
-import auth from '../middleware/auth.js';
-import Team from '../data/TeamSchema.js';
-import TeamUser from '../data/TeamUserSchema.js';
-import Sport from '../data/SportSchema.js';
-import Location from '../data/LocationSchema.js';
+import express from "express";
+import auth from "../middleware/auth.js";
+import Team from "../data/TeamSchema.js";
+import TeamUser from "../data/TeamUserSchema.js";
+import Sport from "../data/SportSchema.js";
+import Location from "../data/LocationSchema.js";
 import mongoose from "mongoose";
 
 const router = express.Router();
@@ -73,34 +73,35 @@ const router = express.Router();
  *         description: Internal server error
  */
 router.get("/list/:loc_id", auth, async (req, res) => {
-    try {
-      const { loc_id } = req.params;
-      const teams = await Team.find({ loc_id });
+  try {
+    const { loc_id } = req.params;
+    const teams = await Team.find({ loc_id });
 
-      const teamsWithCurrentCount = await Promise.all(
-        teams.map(async (team) => {
-          const currentCount = await TeamUser.countDocuments({ team_id: team._id });
-          return {
-            ...team._doc,
-            current_num: currentCount
-          };
-        })
-      );
-      
-      res.apiSuccess(teams, "Teams fetched successfully", 200);
-    } catch (error) {
-      console.log(error);
-      res.apiError("Internal server error", 500);
-    }
- });
- 
+    const teamsWithCurrentCount = await Promise.all(
+      teams.map(async (team) => {
+        const currentCount = await TeamUser.countDocuments({
+          team_id: team._id,
+        });
+        return {
+          ...team._doc,
+          current_num: currentCount,
+        };
+      })
+    );
+
+    res.apiSuccess(teams, "Teams fetched successfully", 200);
+  } catch (error) {
+    console.log(error);
+    res.apiError("Internal server error", 500);
+  }
+});
 
 /**
  * @swagger
  * /api/team/users/{team_id}:
  *   get:
  *     summary: Get all users in a team by team_id
- *     tags: 
+ *     tags:
  *       - Team
  *     security:
  *       - bearerAuth: []
@@ -140,12 +141,12 @@ router.get("/users/:team_id", auth, async (req, res) => {
     // 查找 team 信息
     const team = await Team.findById(team_id);
     if (!team) {
-      return res.apiSuccess(null,"Invalid team_id", 400);
+      return res.apiSuccess(null, "Invalid team_id", 400);
     }
 
     // 查找 team 中的所有用户
-    const members = await TeamUser.find({ team_id }).populate('user_id');
-    
+    const members = await TeamUser.find({ team_id }).populate("user_id");
+
     // 构建返回的结构，包含 team 信息和成员信息
     const teamInfo = {
       _id: team._id,
@@ -156,12 +157,16 @@ router.get("/users/:team_id", auth, async (req, res) => {
       total_num: team.total_num,
     };
 
-    const users = members.map(m => ({
+    const users = members.map((m) => ({
       username: m.user_id.username,
       email: m.user_id.email,
     }));
 
-    res.apiSuccess({ team: teamInfo, members: users }, "Members fetched successfully", 200);
+    res.apiSuccess(
+      { team: teamInfo, members: users },
+      "Members fetched successfully",
+      200
+    );
   } catch (error) {
     console.error(error);
     res.apiError("Internal server error", 500);
@@ -173,7 +178,7 @@ router.get("/users/:team_id", auth, async (req, res) => {
  * /api/team/create:
  *   post:
  *     summary: Create a new team
- *     tags: 
+ *     tags:
  *       - Team
  *     security:
  *       - bearerAuth: []
@@ -219,11 +224,14 @@ router.get("/users/:team_id", auth, async (req, res) => {
 router.post("/create", auth, async (req, res) => {
   try {
     const { name, loc_id, time, level, image, total_num } = req.body;
-    const team = new Team({ name, loc_id, time, level, image, total_num});
+    const team = new Team({ name, loc_id, time, level, image, total_num });
     await team.save();
 
     // Create the first user in the team
-    const teamUser = new TeamUser({ team_id: team._id, user_id: req.user.userId });
+    const teamUser = new TeamUser({
+      team_id: team._id,
+      user_id: req.user.userId,
+    });
     await teamUser.save();
 
     res.apiSuccess(team, "Team created successfully", 200);
@@ -238,7 +246,7 @@ router.post("/create", auth, async (req, res) => {
  * /api/team/join/{team_id}:
  *   post:
  *     summary: Join a team
- *     tags: 
+ *     tags:
  *       - TeamUser
  *     security:
  *       - bearerAuth: []
@@ -275,7 +283,7 @@ router.post("/join/:team_id", auth, async (req, res) => {
     // check if user is already in the team
     const existing = await TeamUser.findOne({ team_id, user_id });
     if (existing) {
-      return res.apiSuccess(null,"Already joined this team", 409);
+      return res.apiSuccess(null, "Already joined this team", 409);
     }
 
     // check if team is full
@@ -294,8 +302,6 @@ router.post("/join/:team_id", auth, async (req, res) => {
     res.apiError("Internal server error", 500);
   }
 });
-
-
 
 /**
  * @swagger
@@ -327,10 +333,10 @@ router.delete("/quit/:team_id", auth, async (req, res) => {
   try {
     const { team_id } = req.params;
     const user_id = req.user.userId;
-    
+
     // Check if team_id is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(team_id)) {
-      return res.apiSuccess(null,"Invalid team_id", 400);
+      return res.apiSuccess(null, "Invalid team_id", 400);
     }
     const record = await TeamUser.findOneAndDelete({ team_id, user_id });
     if (!record) {
@@ -344,6 +350,31 @@ router.delete("/quit/:team_id", auth, async (req, res) => {
   }
 });
 
+// find all teams that the user joined use for profile page
+router.get("/myteams", auth, async (req, res) => {
+  try {
+    const user_id = req.user.userId;
+
+    const teamUsers = await TeamUser.find({ user_id }).populate("team_id");
+
+    const joinedTeams = teamUsers.map((entry) => {
+      const team = entry.team_id;
+      return {
+        id: team._id,
+        name: team.name,
+        time: team.time,
+        level: team.level,
+        loc_id: team.loc_id,
+        total_num: team.total_num,
+        image: team.image,
+      };
+    });
+
+    res.apiSuccess(joinedTeams, "Joined teams fetched successfully", 200);
+  } catch (error) {
+    console.error(error);
+    res.apiError("Internal server error", 500);
+  }
+});
+
 export default router;
-
-

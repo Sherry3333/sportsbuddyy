@@ -1,10 +1,10 @@
-import React from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import {userStore} from '@/domain/user/store/user.store';
-import axios from 'axios'; // 导入 axios
-import './login.css';
-import loginImage from '../../assets/img/login_img_rightside.jpeg';
+import React from "react";
+import { Form, Input, Button, Checkbox, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { userStore } from "@/domain/user/store/user.store";
+import axios from "axios"; // 导入 axios
+import "./login.css";
+import loginImage from "../../assets/img/login_img_rightside.jpeg";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,34 +14,34 @@ const LoginPage = () => {
 
     try {
       // 调用后端登录接口
-      const response = await axios.post('/api/user/login', { email, password });
+      const response = await axios.post("/api/user/login", { email, password });
 
       // 假设后端返回用户信息
       const { data } = response;
-      message.success('Login successful!');
+      message.success("Login successful!");
 
       // 保存用户信息到 localStorage 或全局状态管理
-      localStorage.setItem('userId', data.userId);
-      localStorage.setItem('username', data.username);
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("username", data.username);
 
       // 跳转到主页
-      navigate('/');
+      navigate("/");
     } catch (error) {
       // 处理错误
       if (error.response && error.response.status === 401) {
-        message.error('Invalid email or password');
+        message.error("Invalid email or password");
       } else {
-        message.error('An error occurred. Please try again later.');
+        message.error("An error occurred. Please try again later.");
       }
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error('Failed:', errorInfo);
+    console.error("Failed:", errorInfo);
   };
 
   const handleRegisterClick = () => {
-    navigate('/register'); // 跳转到注册页面
+    navigate("/register"); // 跳转到注册页面
   };
 
   return (
@@ -60,8 +60,8 @@ const LoginPage = () => {
             label="Email"
             name="email"
             rules={[
-              { required: true, message: 'Please input your email!' },
-              { type: 'email', message: 'Please enter a valid email!' },
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Please enter a valid email!" }
             ]}
           >
             <Input placeholder="Enter your email" />
@@ -70,7 +70,7 @@ const LoginPage = () => {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password placeholder="Enter your password" />
           </Form.Item>
@@ -87,7 +87,7 @@ const LoginPage = () => {
         </Form>
         <div className="footer">
           <p>
-            Need an account?{' '}
+            Need an account?{" "}
             <Button type="link" onClick={handleRegisterClick} className="register-button">
               Create one
             </Button>

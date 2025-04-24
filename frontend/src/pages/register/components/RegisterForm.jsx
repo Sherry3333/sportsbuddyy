@@ -12,16 +12,23 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    console.log("✅ onFinish called with values:", values);
     try {
       setLoading(true);
       await registerUser(values);
-      message.success("Registration successful!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000); // wait 1 second before jumping
+      message.success({
+        content: "Registration successful!",
+        duration: 1.5,
+        onClose: () => {
+          navigate("/login", { replace: true });
+        }
+      });
     } catch (err) {
-      message.error(err?.response?.data?.message || "Registration failed");
+      console.error("Registration error:", err);
+      if (err.response?.status === 400) {
+        message.error("Username already exists, please try another one");
+      } else {
+        message.error("Registration failed, please try again");
+      }
     } finally {
       setLoading(false);
     }

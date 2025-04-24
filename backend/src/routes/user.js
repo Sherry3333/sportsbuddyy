@@ -1,7 +1,7 @@
-import express from 'express';
-import auth from '../middleware/auth.js';
-import User from '../data/UserSchema.js';
-import jwt from "jsonwebtoken"; 
+import express from "express";
+import auth from "../middleware/auth.js";
+import User from "../data/UserSchema.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -11,8 +11,8 @@ const router = express.Router();
  *   get:
  *     summary: Retrieve a user by ID
  *     description: Retrieve a specific user from the database using their ID.
- *     tags: 
- *       - User  
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id
@@ -39,16 +39,16 @@ const router = express.Router();
  *       404:
  *         description: User not found.
  */
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+    res.status(500).json({ message: "Server error", error });
   }
 });
 
@@ -57,8 +57,8 @@ router.get('/:id', async (req, res) => {
  * /api/user/login:
  *   post:
  *     summary: Login a user
- *     tags: 
- *       - User  
+ *     tags:
+ *       - User
  *     requestBody:
  *       required: true
  *       content:
@@ -93,15 +93,19 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, {
-      expiresIn: "1h", 
-    });
- 
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
     // Response with token
-    res.apiSuccess(token,"Login successful", 200);
+    res.apiSuccess(token, "Login successful", 200);
   } catch (error) {
     console.log(error);
-    res.apiError("Internal server error", 500)
+    res.apiError("Internal server error", 500);
   }
 });
 
@@ -110,8 +114,8 @@ router.post("/login", async (req, res) => {
  * /api/user/register:
  *   post:
  *     summary: Register a new user
- *     tags: 
- *       - User  
+ *     tags:
+ *       - User
  *     requestBody:
  *       required: true
  *       content:
@@ -127,7 +131,7 @@ router.post("/login", async (req, res) => {
  *                 type: string
  *                 description: The password of the user
  *                 example: 123456
- *               gender:    
+ *               gender:
  *                 type: string
  *                 description: The gender of the user
  *                 example: male
@@ -152,24 +156,24 @@ router.post("/login", async (req, res) => {
  *         description: Internal server error
  */
 router.post("/register", async (req, res) => {
-   try {
-     const { username, password, gender, sports, level, email } = req.body;
+  try {
+    const { username, password, gender, sports, level, email } = req.body;
 
-     // check if username already exists
-     const existingUser = await User.findOne({ username });
-     if (existingUser) {
+    // check if username already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
       return res.apiSuccess(null, "Username already exists", 400);
-     }
+    }
 
-     // create new user 
-     const user = new User({ username, password, gender, sports, level, email });
-     await user.save();
+    // create new user
+    const user = new User({ username, password, gender, sports, level, email });
+    await user.save();
 
-     res.apiSuccess(null,"user created successfully", 200);
-   } catch (error) {
-     console.log(error);
-     res.apiError("Internal server error", 500);
-   }
+    res.apiSuccess(null, "user created successfully", 200);
+  } catch (error) {
+    console.log(error);
+    res.apiError("Internal server error", 500);
+  }
 });
 
 export default router;
