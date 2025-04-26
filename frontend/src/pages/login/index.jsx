@@ -11,8 +11,8 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     const { email, password } = values;
     
-    userLogin({email,password}).then(() => {
-      message.success("Login successful!");
+    userLogin({email,password}).then((res) => {
+      message.success(res.message);
       window.location.href = "/";
     });
   };

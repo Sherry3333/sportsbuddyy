@@ -1,6 +1,5 @@
 import { create } from "zustand";
-import { getUserInfo, checkUserLogin } from "../repository/user.repository";
-import { resolve } from "path";
+import { getUserInfo, checkUserLogin,registerUser} from "../repository/user.repository";
 import { saveStorage } from "@/utils/helper";
 export const userStore = create((set, get) => ({
   username: "",
@@ -10,7 +9,6 @@ export const userStore = create((set, get) => ({
     return new Promise((resolve, reject) => {
       getUserInfo()
         .then((res) => {
-          const userInfo = res.data;
           resolve(res);
         })
         .catch((error) => {
@@ -20,19 +18,27 @@ export const userStore = create((set, get) => ({
   },
 
   userLogin: (params) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       checkUserLogin(params)
         .then((res) => {
-          if (res.data.code === 200) {
-            saveStorage("token", res.data.data);
+          if (res.code === 200) {
+            saveStorage("token", res.data);
             resolve(res);
-          } else {
-            reject(res);
           }
         })
-        .catch((error) => {
-          reject(error);
-        });
     });
+  },
+  userRegister:(params) =>  {
+    return new Promise((resolve,reject) => {
+      registerUser(params).then((res) => {
+        if(res.code === 200){
+          resolve(res);
+        }else{
+          reject(res);
+        }
+      }).catch((error) => {
+        reject(error)
+      })
+    })
   }
 }));

@@ -7,7 +7,10 @@ export const getUserInfo = () => {
   })
 }
 
-
 export const checkUserLogin = (params) => {
   return http.post('/api/user/login',params)
+}
+
+export async function registerUser(data) {
+  return http.post("/api/user/register", data);
 }
