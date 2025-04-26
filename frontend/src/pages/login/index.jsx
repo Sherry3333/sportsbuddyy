@@ -2,42 +2,19 @@ import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "@/domain/user/store/user.store";
-import axios from "axios"; // 导入 axios
 import "./login.css";
 import loginImage from "../../assets/img/login_img_rightside.jpeg";
 
 const LoginPage = () => {
+  const userLogin = userStore((state) => state.userLogin);
   const navigate = useNavigate();
-
   const onFinish = async (values) => {
     const { email, password } = values;
-
-    try {
-      // 调用后端登录接口
-      const response = await axios.post("/api/user/login", { email, password });
-
-      // 假设后端返回用户信息
-      const { data } = response;
+    
+    userLogin({email,password}).then(() => {
       message.success("Login successful!");
-
-      // 保存用户信息到 localStorage 或全局状态管理
-      localStorage.setItem("userId", data.userId);
-      localStorage.setItem("username", data.username);
-
-      // 跳转到主页
-      navigate("/");
-    } catch (error) {
-      // 处理错误
-      if (error.response && error.response.status === 401) {
-        message.error("Invalid email or password");
-      } else {
-        message.error("An error occurred. Please try again later.");
-      }
-    }
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.error("Failed:", errorInfo);
+      window.location.href = "/";
+    });
   };
 
   const handleRegisterClick = () => {
@@ -53,7 +30,6 @@ const LoginPage = () => {
           name="login"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           layout="vertical"
         >
           <Form.Item
