@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { homeStore } from "@/domain/home/store/home.store";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.less";
 
 const LeftSideCompo = () => {
-  const [sports, setSports] = useState([]); // 用于存储运动列表
+  const sports = homeStore((state) => state.sports); // 从 Zustand 中获取运动列表
+  const getSportsList = homeStore((state) => state.getSportsList); // 获取运动列表的函数
   const navigate = useNavigate(); // 用于导航
 
   // 调用后端接口获取运动列表
   useEffect(() => {
-    const fetchSports = async () => {
-      try {
-        const response = await axios.get("/api/sport/list"); // 调用后端接口
-        setSports(response.data.data); // 假设后端返回的数据在 data.data 中
-      } catch (error) {
-        console.error("Error fetching sports:", error);
-      }
-    };
-
-    fetchSports();
+    getSportsList()
   }, []);
 
   return (

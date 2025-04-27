@@ -5,7 +5,7 @@ export const userStore = create((set, get) => ({
   username: "",
   userId: -1,
 
-  setUserInfo: () => {
+  getUserInfo: () => {
     return new Promise((resolve, reject) => {
       getUserInfo()
         .then((res) => {

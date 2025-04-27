@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../index.less";
+import "./index.less";
 import axios from "axios";
 import tennis from "@/assets/img/tennis.png";
 import football from "@/assets/img/football.png";
