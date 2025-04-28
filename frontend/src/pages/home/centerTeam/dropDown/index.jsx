@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { AutoComplete, Button } from "antd";
+import { AutoComplete, Button, Select} from "antd";
 import mapLogo from "@/assets/img/map.png"
 import styles from "./index.module.less";
 const DropDownCom = () => {
   const [options, setOptions] = useState([]);
-  const onSelect = (data) => {
-    console.log("onSelect", data);
-  };
+  
+  const handleChange = (value) => {
+    console.log('value:',value)
+  }
 
   const createTeam = () => {
     console.log("create team");
@@ -14,7 +15,13 @@ const DropDownCom = () => {
   return (
     <div className={styles.center}>
       <img src={mapLogo} alt="map" className={styles.map_logo} />
-      <AutoComplete className={styles.auto_complete} placeholder="click to choose address" options={options} onSelect={onSelect} />
+      <Select
+          size="large"
+          defaultValue="a1"
+          onChange={handleChange}
+          style={{ width: 200, marginRight:20 }}
+          options={options}
+        />
       <Button type="primary" className={styles.create_team_button} onClick={createTeam}>
         create team
       </Button>

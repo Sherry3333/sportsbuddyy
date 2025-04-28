@@ -4,6 +4,7 @@ import s1 from "@/assets/img/showcase1.jpg";
 import s2 from "@/assets/img/showcase2.jpg";
 import s3 from "@/assets/img/showcase3.jpg";
 import profileLogo from "@/assets/img/profile_logo.png";
+import PeopleCom from "./people";
 const TeamListCom = () => {
   const teams = [
     {
@@ -52,6 +53,7 @@ const TeamListCom = () => {
                 <span className={styles.sportTag}>{team.sport.toUpperCase()}</span>
                 <p className={styles.address}>{team.address}</p>
                 <p className={styles.date}>{team.date}</p>
+                <PeopleCom num={3}/>
                 <div className={styles.teamInfo}>
                   <img src={profileLogo} alt="Team Avatar" className={styles.avatar} />
                   <div>
