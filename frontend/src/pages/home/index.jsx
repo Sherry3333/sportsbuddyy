@@ -1,24 +1,21 @@
 import LeftSetting from "./leftSetting/LeftSideCompo";
 import RightProfile from "./rightProfile";
-import "./index.less";
+import CenterTeam from "./centerTeam";
+import styles from "./index.module.less";
 
 import { useEffect } from "react";
-import { Button } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 
 const HomePage = () => {
-  const setUserInfo = userStore((state) => state.setUserInfo);
+  const getUserInfo = userStore((state) => state.getUserInfo);
   useEffect(() => {
-    console.log("执行1次");
-    setUserInfo();
+    getUserInfo();
   }, []);
   return (
-    <div>
+    <div className={styles.container}>
       <LeftSetting />
-      <Button type="primary">test button</Button>
-      <div className="right">
-        <RightProfile />
-      </div>
+      <CenterTeam />
+      <RightProfile />
     </div>
   );
 };

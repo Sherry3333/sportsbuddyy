@@ -1,0 +1,18 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none; /* 去掉链接下划线 */
+  color: inherit; /* 链接颜色继承父元素 */
+}
+
+ul, ol {
+  list-style: none; /* 去掉列表的默认样式 */
+}
+
+table {
+  border-collapse: collapse; /* 合并表格边框 */
+  border-spacing: 0;
+}

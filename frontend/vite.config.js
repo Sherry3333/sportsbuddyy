@@ -11,10 +11,6 @@ export default defineConfig({
       less: {
         // 全局变量/混入（可选配置）
         additionalData: `@import "@/assets/variables.less";`,
-        modifyVars: {
-          // 修改变量（可选）
-          "primary-color": "#1890ff"
-        },
         javascriptEnabled: true // 支持 Less 中的 JavaScript 表达式
       }
     }

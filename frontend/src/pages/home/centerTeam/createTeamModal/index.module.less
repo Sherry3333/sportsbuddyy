@@ -1,0 +1,117 @@
+.modal {
+  .ant-modal-content {
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .ant-modal-header {
+    border-bottom: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .ant-modal-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .ant-modal-footer {
+    display: none; /* 隐藏默认的底部按钮 */
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  input,
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    padding: 0 12px;
+  }
+
+  .ant-input-suffix {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.levelDot {
+  width: 10px;
+  height: 10px;
+  background-color: orange;
+  border-radius: 50%;
+}
+
+.addMemberButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e6e6e6;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  .cancelButton {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e6e6e6;
+    }
+  }
+
+  .createButton {
+    background-color: #702dff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #5a23cc;
+    }
+  }
+}

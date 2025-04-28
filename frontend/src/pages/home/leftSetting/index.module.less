@@ -2,14 +2,14 @@
   color: #702dff;
   font-size: 16px;
   &:hover {
-    background-color: @primary-color;
+    background-color: #1890ff;
   }
 }
 
 /* 左侧容器样式 */
 .leftSide {
   width: 250px;
-  background-color: #f8f9fa;
+  background-color: @bg-color;
   padding: 20px;
   border-right: 1px solid #e0e0e0;
   height: 100vh;
@@ -42,7 +42,9 @@
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   text-align: left; /* 左对齐文本 */
   margin-bottom: 10px; /* 列表项之间的间距 */
 

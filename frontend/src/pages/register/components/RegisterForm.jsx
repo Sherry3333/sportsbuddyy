@@ -1,37 +1,29 @@
-import React from "react";
-import { Form, Input, Select, Button, message } from "antd";
-import { registerUser } from "@/domain/register/repository/register.repository";
-import { useRegisterStore } from "@/domain/register/store/register.store";
+import React,{useState} from "react";
+import { Form, Input, Select, Button,message} from "antd";
+import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
 import "@/pages/register/index.less";
 
 const { Option } = Select;
 
 const RegisterForm = () => {
-  const { loading, setLoading } = useRegisterStore();
+  const registerUser = userStore((state) => state.userRegister);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
-    try {
-      setLoading(true);
-      await registerUser(values);
+  const onFinish = (values) => {
+    setLoading(true);
+    registerUser(values).then((res) => {
       message.success({
-        content: "Registration successful!",
+        content: res.message,
         duration: 1.5,
         onClose: () => {
           navigate("/login", { replace: true });
         }
       });
-    } catch (err) {
-      console.error("Registration error:", err);
-      if (err.response?.status === 400) {
-        message.error("Username already exists, please try another one");
-      } else {
-        message.error("Registration failed, please try again");
-      }
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    })
   };
 
   return (
