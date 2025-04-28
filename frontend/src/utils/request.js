@@ -32,17 +32,8 @@ service.interceptors.request.use(
   }
 );
 
-// 响应拦截器
 service.interceptors.response.use(
   (res) => {
-    /* 
-    响应数据标准格式处理（根据实际API结构调整）：
-    {
-      code: 200,       // 业务状态码
-      data: {},        // 实际数据
-      message: '成功'   // 消息
-    }
-    */
     const code = res?.data?.code ?? 200;
     const msg = res?.data?.message ?? errorCode["default"];
     if (code === 401) {
@@ -62,7 +53,6 @@ service.interceptors.response.use(
       antdMessage.error(msg);
       return Promise.reject(new Error(msg));
     } else {
-      // 返回实际需要的数据部分（根据API结构可能是 res.data）
       return Promise.resolve(res.data);
     }
   },
@@ -75,7 +65,6 @@ service.interceptors.response.use(
   }
 );
 
-// 封装更健壮的请求方法
 export const http = {
   get(url, params, config) {
     return service.get(url, { ...config, params });
@@ -94,5 +83,4 @@ export const http = {
   }
 };
 
-// 导出原始实例（按需使用）
 export default service;
