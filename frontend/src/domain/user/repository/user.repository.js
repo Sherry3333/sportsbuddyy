@@ -12,3 +12,7 @@ export const checkUserLogin = (params) => {
 export async function registerUser(data) {
   return http.post("/api/user/register", data);
 }
+
+export async function logout() {
+  return http.post("/api/user/logout");
+}
