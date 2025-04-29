@@ -1,44 +1,36 @@
 import React, { useEffect } from "react";
 import { homeStore } from "@/domain/home/store/home.store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // For making API requests
-import { removeStorage } from "@/utils/helper"; // Import removeStorage method
 import styles from "./index.module.less";
+import { userStore } from "@/domain/user/store/user.store"; // Import userLogout method
 
 const LeftSideCompo = () => {
-  const sports = homeStore((state) => state.sports); // Retrieve sports list from Zustand store
-  const getSportsList = homeStore((state) => state.getSportsList); // Function to fetch sports list
-  const navigate = useNavigate(); // Used for navigation
+  const sports = homeStore((state) => state.sports); 
+  const getSportsList = homeStore((state) => state.getSportsList); 
+  const userLogout = userStore((state) => state.userLogout);
+  const navigate = useNavigate(); 
 
   // Fetch sports list from the backend
   useEffect(() => {
     getSportsList();
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      // Call the logout API endpoint
-      const response = await axios.post("/api/user/logout", null, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if required
-        },
-      });
-
-      if (response.status === 200) {
-        console.log(response.data.message); // "Logout successful"
-        // Clear user information from local storage using removeStorage
-        removeStorage("userId");
-        removeStorage("token");
-        // Redirect to the login page
+  const handleLogout = () => {
+    userLogout()
+      .then((res) => {
+        if (res.code === 200) {
+          console.log("Logout successful:", res.message);
+        } else {
+          console.warn("Unexpected logout response:", res);
+        }
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error.message || error);
+      })
+      .finally(() => {
+        // 无论成功或失败都跳转
         navigate("/login");
-      } else {
-        console.error("Unexpected response:", response);
-      }
-    } catch (error) {
-      console.error("Logout failed:", error.response?.data || error.message);
-      // Optionally redirect to login even if logout fails
-      navigate("/login");
-    }
+      });
   };
 
   return (

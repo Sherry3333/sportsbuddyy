@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getUserInfo, checkUserLogin,registerUser} from "../repository/user.repository";
+import { getUserInfo, checkUserLogin, registerUser, logout } from "../repository/user.repository";
 import { removeStorage, saveStorage } from "@/utils/helper";
 export const userStore = create((set, get) => ({
   username: "",
@@ -28,12 +28,12 @@ export const userStore = create((set, get) => ({
         })
     });
   },
-  userRegister:(params) =>  {
-    return new Promise((resolve,reject) => {
+  userRegister: (params) => {
+    return new Promise((resolve, reject) => {
       registerUser(params).then((res) => {
-        if(res.code === 200){
+        if (res.code === 200) {
           resolve(res);
-        }else{
+        } else {
           reject(res);
         }
       }).catch((error) => {
@@ -45,11 +45,18 @@ export const userStore = create((set, get) => ({
     return new Promise((resolve) => {
       logout()
         .then((res) => {
+          removeStorage("token");
+          removeStorage("userId");
           if (res.code === 200) {
-            removeStorage("token");
             resolve(res);
+          } else {
+            reject(res);
           }
-        })
-    });
-  },
+        }).catch((error) => {
+          removeStorage("token");
+          removeStorage("userId");
+          reject(error);
+        });
+    },);
+  }
 }));
