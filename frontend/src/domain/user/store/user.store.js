@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { getUserInfo, checkUserLogin,registerUser} from "../repository/user.repository";
-import { saveStorage } from "@/utils/helper";
+import { removeStorage, saveStorage } from "@/utils/helper";
 export const userStore = create((set, get) => ({
   username: "",
   userId: -1,
@@ -40,5 +40,16 @@ export const userStore = create((set, get) => ({
         reject(error)
       })
     })
-  }
+  },
+  userLogout: () => {
+    return new Promise((resolve) => {
+      logout()
+        .then((res) => {
+          if (res.code === 200) {
+            removeStorage("token");
+            resolve(res);
+          }
+        })
+    });
+  },
 }));
