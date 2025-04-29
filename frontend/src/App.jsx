@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import HomePage from "./pages/home/index";
-import LoginPage from "./pages/login/index";
+import LoginPage from "./pages/login/index.module";
 import RegisterPage from "./pages/register/index";
 import NotFound from "./pages/404";
 import {seedToken} from '@/assets/seedToken';

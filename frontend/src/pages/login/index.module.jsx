@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "@/domain/user/store/user.store";
-import "./login.css";
+import styles from "./login.module.css";
 import loginImage from "../../assets/img/login_img_rightside.jpeg";
 
 const LoginPage = () => {
@@ -22,8 +22,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-form">
+    <div className={styles["login-container"]}>
+      <div className={styles["login-form"]}>
         <h1>Sign in</h1>
         <p>Please login to continue to your account.</p>
         <Form
@@ -56,21 +56,21 @@ const LoginPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="sign-in-button">
+            <Button type="primary" htmlType="submit" className={styles["sign-in-button"]}>
               Sign in
             </Button>
           </Form.Item>
         </Form>
-        <div className="footer">
+        <div className={styles.footer}>
           <p>
             Need an account?{" "}
-            <Button type="link" onClick={handleRegisterClick} className="register-button">
+            <Button type="link" onClick={handleRegisterClick} className={styles["register-button"]}>
               Create one
             </Button>
           </p>
         </div>
       </div>
-      <div className="login-image">
+      <div className={styles["login-image"]}>
         <img src={loginImage} alt="Login" />
       </div>
     </div>
