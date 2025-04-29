@@ -1,0 +1,202 @@
+// Base styles needed for Profile component
+
+// Profile component styles
+.container {
+  width: 296px;
+  padding: 20px;
+  background: #fff;
+  border-left: 1px solid #eee;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.moreBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #8c52ff;
+  }
+}
+
+.logoutBtn {
+  background: #844ef0;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.1s ease;
+
+  &:hover {
+    background: #7440e0;
+  }
+}
+
+.info {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.avatarWrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  position: relative;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.infoLabel {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.sportIcons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.teamsSection {
+  .sectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .teamsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .noTeamsMessage {
+    text-align: center;
+    padding: 30px 0;
+
+    .statusText {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .findBtn {
+      background: #8c52ff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 800;
+
+      &:hover {
+        background: #7440e0;
+      }
+    }
+  }
+
+  .teamItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .teamInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .teamAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 8px;
+    background: white;
+    object-fit: contain;
+  }
+
+  .teamDetails {
+    .teamName {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .teamAddress {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+
+  .detailBtn {
+    background: #8c52ff;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 11px;
+
+    &:hover {
+      background: #7440e0;
+    }
+  }
+}
+
+.seeAllBtn {
+  width: 100%;
+  padding: 10px;
+  background: #f5f0ff;
+  border: none;
+  border-radius: 20px;
+  color: #8c52ff;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background: #efe5ff;
+  }
+}
+
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
