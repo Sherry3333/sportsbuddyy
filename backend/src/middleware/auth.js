@@ -1,19 +1,20 @@
 import jwt from 'jsonwebtoken';
 
 const auth = (req, res, next) => {
-    const token = req.header("Authorization")?.replace("Bearer ", "");
-  
-    if (!token) return res.status(401).json({ msg: "No token, authorization denied" });
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
-    try {
-        // verify token 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // add user to request object
-        next();
-      } catch (error) {
-        res.status(401).json({ message: "Invalid token" });
-      }
-   
+  if (!token)
+    return res.unauthorized("No token, authorization denied");
+
+  try {
+    // verify token 
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // add user to request object
+    next();
+  } catch (error) {
+    res.unauthorized("Invalid token");
+  }
+
 };
 
 //role verification 

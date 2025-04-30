@@ -89,7 +89,7 @@ router.post("/login", async (req, res) => {
     // Check if the user exists
     const user = await User.findOne({ email });
     if (!user || user.password !== password) {
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.apiSuccess(null, "Invalid username or password", 400);
     }
 
     // Generate a JWT token
@@ -191,17 +191,9 @@ router.post("/register", async (req, res) => {
  */
 router.post("/logout", auth, async (req, res) => {
   try {
-    // 如果使用的是服务器端会话，可以在这里销毁会话
-    req.session.destroy((err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Logout failed" });
-      }
-      res.status(200).json({ message: "Logout successful" });
-    });
+    res.apiSuccess(null, "Logout successful", 200);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.apiError("Internal server error", 500);
   }
 });
 export default router;
