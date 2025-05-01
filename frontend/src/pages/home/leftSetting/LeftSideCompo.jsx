@@ -16,7 +16,7 @@ const LeftSideCompo = () => {
   }, []);
 
   const handleLogout = () => {
-    userLogout()
+    userLogout({})
       .then((res) => {
         if (res.code === 200) {
           console.log("Logout successful:", res.message);
@@ -28,7 +28,7 @@ const LeftSideCompo = () => {
         console.error("Logout failed:", error.message || error);
       })
       .finally(() => {
-        // 鏃犺鎴愬姛鎴栧け璐ラ兘璺宠浆
+        // 无论成功或失败都跳转
         navigate("/login");
       });
   };

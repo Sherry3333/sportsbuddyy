@@ -41,9 +41,9 @@ export const userStore = create((set, get) => ({
       })
     })
   },
-  userLogout: () => {
+  userLogout: (param) => {
     return new Promise((resolve) => {
-      logout()
+      logout(param)
         .then((res) => {
           removeStorage("token");
           removeStorage("userId");

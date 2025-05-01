@@ -4,7 +4,7 @@ const auth = (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token)
-    return res.unauthorized("No token, authorization denied");
+    return res.apiUnauthorized("No token, authorization denied");
 
   try {
     // verify token 
@@ -12,7 +12,7 @@ const auth = (req, res, next) => {
     req.user = decoded; // add user to request object
     next();
   } catch (error) {
-    res.unauthorized("Invalid token");
+    res.apiUnauthorized("Token is not valid");
   }
 
 };

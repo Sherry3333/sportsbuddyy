@@ -40,6 +40,6 @@ export const registerUser = (data) => {
   return request(ENDPOINTS.REGISTER, METHODS.POST, data);
 };
 
-export const logout = () => {
-  return request(ENDPOINTS.LOGOUT, METHODS.POST);
+export const logout = (data) => {
+  return request(ENDPOINTS.LOGOUT, METHODS.POST, data);
 };
