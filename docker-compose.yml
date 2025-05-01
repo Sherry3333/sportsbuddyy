@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DB_CONNECTION_STRING=mongodb://mongo:27017/sports
+    depends_on:
+      - mongo
+      - initdb
+
+  initdb:
+    build: ./backend
+    depends_on:
+      - mongo
+    environment:
+      - DB_CONNECTION_STRING=mongodb://mongo:27017/sports
+    command: npm run init-db
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

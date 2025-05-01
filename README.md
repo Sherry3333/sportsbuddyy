@@ -67,3 +67,6 @@ Mark conflicts as resolved:
 
 # Delete remote branch after it's merged to main
 `git push origin --delete HX732-15.jinbo`
+
+# Start up by docker, make sure you install docker hub in advance
+`docker compose up`
