@@ -1,7 +1,10 @@
-import {http} from '@/utils/request';
+import { http } from "@/utils/request";
 
 //get sports list
 export const _getSportsList = () => {
-  return http.get('/api/sport/list')
-}
+  return http.get("/api/sport/list");
+};
 
+export const _getTeamListLocs = (id) => {
+  return http.get(`/api/sport/${id}`);
+};
