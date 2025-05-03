@@ -48,6 +48,67 @@ router.post("/create", auth, async (req, res) => {
   }
 });
 
-export default router;
+/**
+ * @swagger
+ * /api/location/sport/{sport_id}:
+ *   get:
+ *     summary: Get all locations by sport ID
+ *     tags:
+ *       - Location
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sport_id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the sport
+ *     responses:
+ *       200:
+ *         description: Successfully fetched locations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     example: 661c0a3e72d5be34b22297fa
+ *                   name:
+ *                     type: string
+ *                     example: Auckland Central Park
+ *                   sports_id:
+ *                     type: string
+ *                     example: 661c0a3e72d5be34b22297fa
+ *       404:
+ *         description: No locations found for the given sport ID
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/sport/:sport_id", auth, async (req, res) => {
+  try {
+    const { sport_id } = req.params;
 
+    // Check if sport_id is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(sport_id)) {
+      return res.apiError("Invalid sport ID", 400);
+    }
+
+    const locations = await Location.find({ sports_id: sport_id });
+
+    if (!locations || locations.length === 0) {
+      return res.apiError("No locations found for the given sport ID", 404);
+    }
+
+    res.apiSuccess(locations, "Locations fetched successfully", 200);
+  } catch (error) {
+    console.error(error);
+    res.apiError("Internal server error", 500);
+  }
+});
+
+export default router;
 
