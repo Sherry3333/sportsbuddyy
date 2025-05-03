@@ -50,7 +50,7 @@ router.post("/create", auth, async (req, res) => {
 
 /**
  * @swagger
- * /api/location/sport/{sport_id}:
+ * /api/location/list/{sport_id}:
  *   get:
  *     summary: Get all locations by sport ID
  *     tags:
@@ -88,7 +88,7 @@ router.post("/create", auth, async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.get("/sport/:sport_id", auth, async (req, res) => {
+router.get("/list/:sport_id", auth, async (req, res) => {
   try {
     const { sport_id } = req.params;
 
