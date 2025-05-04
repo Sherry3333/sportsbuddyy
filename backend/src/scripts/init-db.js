@@ -5,6 +5,7 @@ import Sport from "../data/SportSchema.js";
 import Location from "../data/LocationSchema.js";
 import Team from "../data/TeamSchema.js";
 import TeamUser from "../data/TeamUserSchema.js";
+import e from "express";
 
 await mongoose.connect(process.env.DB_CONNECTION_STRING);
 console.log("Connected to database");
@@ -66,20 +67,26 @@ await Team.deleteMany({});
 const teams = [
     {
         name: "Team A", loc_id: locationsResponse[0]._id,
-        time: "Every Saturday 9AM",
+        start_time: "Every Saturday 9AM",
+        end_time: "Every Saturday 10AM",
         level: "Beginner",
+        team_desc: "A beginner team for soccer enthusiasts",
         image: "team-a.jpg", total_num: 10
     },
     {
         name: "Team B", loc_id: locationsResponse[1]._id,
-        time: "Every Sunday 10AM",
+        start_time: "Every Sunday 10AM",
+        end_time: "Every Sunday 11AM",
         level: "Intermediate",
+        team_desc: "An intermediate team for basketball enthusiasts",
         image: "team-b.jpg", total_num: 15
     },
     {
         name: "Team C", loc_id: locationsResponse[2]._id,
-        time: "Every Friday 11AM",
+        start_time: "Every Friday 11AM",
+        end_time: "Every Friday 12PM",
         level: "Advanced",
+        team_desc: "An advanced team for golf enthusiasts",
         image: "team-c.jpg", total_num: 20
     }
 ];
