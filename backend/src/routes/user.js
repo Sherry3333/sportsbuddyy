@@ -189,7 +189,7 @@ router.post("/register", async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-router.post("/logout", auth, async (req, res) => {
+router.post("/logout", async (req, res) => {
   try {
     res.apiSuccess(null, "Logout successful", 200);
   } catch (error) {
