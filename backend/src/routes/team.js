@@ -197,10 +197,14 @@ router.get("/users/:team_id", auth, async (req, res) => {
  *                 type: string
  *                 description: The location ID where the team will be created
  *                 example: 60d6d7f6c905f80012345678
- *               time:
+ *               start_time:
  *                 type: string
- *                 description: The time of team activities
+ *                 description: Start time of team activities
  *                 example: "2025-04-01T10:00:00Z"
+ *               end_time:
+ *                 type: string
+ *                 description: End time of team activities
+ *                 example: "2025-04-01T11:00:00Z"
  *               level:
  *                 type: string
  *                 description: The level of the team
@@ -209,6 +213,10 @@ router.get("/users/:team_id", auth, async (req, res) => {
  *                 type: string
  *                 description: The URL of the team's image
  *                 example: "http://example.com/team-image.jpg"
+ *               team_desc:
+ *                 type: string
+ *                 description: The description of the team
+ *                 example: "A team for runners who are looking for a fun and challenging way to get fit and stay healthy."
  *               total_num:
  *                 type: integer
  *                 description: The maximum number of members allowed in the team
@@ -223,8 +231,8 @@ router.get("/users/:team_id", auth, async (req, res) => {
  */
 router.post("/create", auth, async (req, res) => {
   try {
-    const { name, loc_id, time, level, image, total_num } = req.body;
-    const team = new Team({ name, loc_id, time, level, image, total_num });
+    const { name, loc_id, start_time, end_time, team_desc, level, image, total_num } = req.body;
+    const team = new Team({ name, loc_id, start_time, end_time, level, image, team_desc, total_num });
     await team.save();
 
     // Create the first user in the team
