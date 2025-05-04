@@ -58,7 +58,19 @@ service.interceptors.response.use(
   },
   (error) => {
     const errorResponse = error.response || {};
-    // const status = errorResponse.status;
+    const statusCode = errorResponse.status;
+    if (statusCode === 401) {
+      Modal.error({
+        title: "login expired",
+        content: "login expired, please login again",
+        onOk: () => {
+          removeStorage("token");
+          window.location.href = "/login";
+        }
+      });
+      return Promise.reject(new Error("login expired, please login again"));
+    }
+    console.log('statusCode:',statusCode)
     const errorMessage = errorResponse.data?.message ?? error?.message ?? errorCode["default"];
     antdMessage.error(errorMessage);
     return Promise.reject(errorMessage);

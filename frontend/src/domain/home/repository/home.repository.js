@@ -6,5 +6,9 @@ export const _getSportsList = () => {
 };
 
 export const _getTeamListLocs = (id) => {
-  return http.get(`/api/sport/${id}`);
+  return http.get(`/api/location/list/${id}`);
 };
+
+export const _createLoc = (data) => {
+  return http.post("/api/location/create", data);
+}

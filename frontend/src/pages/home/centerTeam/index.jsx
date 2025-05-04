@@ -2,6 +2,7 @@ import React from "react";
 import DropDownCom from "./dropDown";
 import TeamDetailCom from "./teamDetail";
 import TeamListCom from "./teamList";
+import CreateTeamModal from "./createTeamModal";
 
 import { Card, Button, List, Avatar, Tag, Row, Col, Typography, Input } from "antd";
 import { EnvironmentOutlined } from "@ant-design/icons";
@@ -16,6 +17,7 @@ const CenterTeam = () => {
         <DropDownCom />
         <TeamListCom />
         <TeamDetailCom />
+        <CreateTeamModal/>
       </div>
     </div>
   );
