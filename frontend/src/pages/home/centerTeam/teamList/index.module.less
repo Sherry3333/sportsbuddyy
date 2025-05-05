@@ -2,6 +2,18 @@
   background-color: @bg-color;
   border-top-left-radius: @border-radius;
   border-top-right-radius: @border-radius;
+
+  .teamCards {
+    transition: opacity 0.3s ease-in-out; /* 动画过渡效果 */
+  }
+
+  .fadeOut {
+    opacity: 0; /* 淡出 */
+  }
+
+  .fadeIn {
+    opacity: 1; /* 淡入 */
+  }
 }
 
 .header {
@@ -41,12 +53,23 @@
 
 .card_container {
   width: 268px;
+  border-radius: @border-radius;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  &.active {
+    box-shadow: 0 8px 16px @primary-color;
+  }
 
   .card {
     background-color: #fff;
-    border-radius: 8px;
     padding: 12px;
-    // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .cardImage {
@@ -75,6 +98,9 @@
     color: @text-color;
     margin: 5px 0;
     font-weight: @font-weight-bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .teamInfo {

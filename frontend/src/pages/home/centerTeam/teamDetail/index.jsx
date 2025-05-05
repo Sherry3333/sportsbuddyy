@@ -1,91 +1,78 @@
+import { useEffect, useState } from "react";
 import styles from "./index.module.less";
+import { homeStore } from "@/domain/home/store/home.store";
 import profileAvatar from "@/assets/img/profile_logo.png";
-import { Button, Table, Avatar, Tag } from "antd";
+import { Button, Table, Avatar, Tag, message } from "antd";
 const TeamDetailCom = () => {
-  const teamMembers = [
-    {
-      key: "1",
-      name: "Prashant Kumar Singh",
-      gender: "Male",
-      level: "LEVEL-4",
-      info: "自我介绍"
-    },
-    {
-      key: "2",
-      name: "Ravi Kumar",
-      gender: "Male",
-      level: "LEVEL-4",
-      info: "自我介绍"
-    },
-    {
-      key: "3",
-      name: "Ravi Kumar",
-      gender: "Male",
-      level: "LEVEL-4",
-      info: "自我介绍"
-    },
-    {
-      key: "4",
-      name: "Ravi Kumar",
-      gender: "Male",
-      level: "LEVEL-4",
-      info: "自我介绍"
-    },
-    {
-      key: "5",
-      name: "Ravi Kumar",
-      gender: "Male",
-      level: "LEVEL-5",
-      info: "自我介绍"
-    }
-  ];
+  const teamList = homeStore((state) => state.teamList);
+  const getTeamUsersList = homeStore((state) => state.getTeamUsersList);
+  const activeCardId = homeStore((state) => state.activeCardId);
+  const quitTeam = homeStore((state) => state.quitTeam);
+  const joinTeam = homeStore((state) => state.joinTeam);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const onJoinTeam = () => {
+    joinTeam(activeCardId)?.then((res) => {
+      if(res?.code === 200){
+        message.success(res?.message ?? "join success!")
+      }
+    });
+  }
 
+  const onQuitTeam = () => {
+    quitTeam(activeCardId)?.then((res) => {
+      if(res?.code === 200){
+        message.success(res?.message ?? "quit success!")
+      }
+    });
+  }
   const columns = [
     {
       title: "PLAYER",
-      dataIndex: "name",
-      key: "name",
-      render: (text, record) => (
-        <div className={styles.playerInfo}>
-          <Avatar src={profileAvatar} alt="avatar" className={styles.avatar} />
-          <div>
-            <p className={styles.name}>{record.name}</p>
-            <p className={styles.gender}>Gender: {record.gender}</p>
+      dataIndex: "username",
+      key: "username",
+      render: (text, record) => {
+        console.log("record:",record)
+        return (
+          <div className={styles.playerInfo}>
+            <Avatar src={profileAvatar} alt="avatar" className={styles.avatar} />
+            <div>
+              <p className={styles.name}>{record?.username ?? "~"}</p>
+              <p className={styles.gender}>Gender: {record?.gender ?? "~"}</p>
+            </div>
           </div>
-        </div>
-      )
+        );
+      }
     },
     {
-      title: "LEVEL",
-      dataIndex: "level",
-      key: "level",
-      render: (level) => <Tag color="purple">{level}</Tag>
-    },
-    {
-      title: "INFO",
-      dataIndex: "info",
-      key: "info"
-    },
-    {
-      title: "PROFILE",
-      key: "profile",
-      render: () => (
-        <Button type="link" className={styles.detailsButton}>
-          SHOW DETAILS
-        </Button>
+      title: "email",
+      dataIndex: "email",
+      key: "email",
+      render: (text) => (
+        <Tag color="purple">
+          {text ?? "~"}
+        </Tag>
       )
     }
   ];
+
+  useEffect(() => {
+    getTeamUsersList()?.then((res) => {
+      console.log("res:", res);
+      setTeamMembers(res?.data?.members ?? []);
+    });
+  }, [activeCardId]);
   return (
     <div className={styles.teamDetailContainer}>
       <div className={styles.header}>
         <h2>Team Detail</h2>
-        <div className={styles.actions}>
-          <Button type="primary" className={styles.commonButton}>
-            join now
-          </Button>
-          <Button className={[styles.commonButton, styles.quitButton]}>quit</Button>
-        </div>
+        {teamList?.length > 0 && (
+          <div className={styles.actions}>
+            <Button type="primary" onClick={onJoinTeam} className={styles.commonButton}>
+              join now
+            </Button>
+            <Button onClick={onQuitTeam} className={[styles.commonButton, styles.quitButton]}>quit</Button>
+          </div>
+        )}
       </div>
       <div className={styles.tableContainer}>
         <Table
@@ -93,7 +80,7 @@ const TeamDetailCom = () => {
           columns={columns}
           pagination={false}
           className={styles.table}
-          scroll={{y:'calc(100vh - 700px)'}}
+          scroll={{ y: "calc(100vh - 700px)" }}
         />
       </div>
     </div>

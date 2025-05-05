@@ -12,6 +12,8 @@ const DropDownCom = () => {
   const createLoc = homeStore((state) => state.createLoc);
   const addLocLoading = homeStore((state) => state.addLocLoading);
   const setModalState = homeStore((state) => state.setModalState);
+  const selectLocId = homeStore((state) => state.selectLocId);
+  const changeSelectLocId = homeStore((state) => state.changeSelectLocId);
   const inputRef = useRef(null);
   const autoCompleteRef = useRef(null);
 
@@ -36,7 +38,9 @@ const DropDownCom = () => {
       <img src={mapLogo} alt="map" className={styles.map_logo} />
       <Select
         style={{ width: 400, marginRight: 20, height: 40 }}
-        placeholder="click to choose"
+        value={selectLocId ?? ""}
+        placeholder="click to choose location"
+        onChange={changeSelectLocId}
         dropdownRender={(menu) => (
           <>
             {menu}
