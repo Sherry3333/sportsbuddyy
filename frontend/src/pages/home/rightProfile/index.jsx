@@ -6,6 +6,8 @@ import football from "@/assets/img/football.png";
 import badminton from "@/assets/img/badminton.png";
 import basketball from "@/assets/img/basketball.png";
 import sports from "@/assets/img/sports.png";
+import { userStore } from "@/domain/user/store/user.store";
+
 
 const getSportIcon = (teamName) => {
   const name = teamName.toLowerCase();
@@ -17,6 +19,8 @@ const getSportIcon = (teamName) => {
 };
 
 const Profile = () => {
+  const getUserInfo = userStore((state) => state.getUserInfo);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [userTeams, setUserTeams] = useState([]);
@@ -57,33 +61,14 @@ const Profile = () => {
   };
 
   const fetchUserData = () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.log("No token found");
-        return;
-      }
-
-      // get user info from token
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-
-      const { username } = JSON.parse(jsonPayload);
-      setUsername(username);
-    } catch (error) {
+    const user = getUserInfo().then((res) => {
+      const user = res.data;
+      setUsername(user.username);
+    }).catch((error) => {
       console.error("Failed to parse token:", error);
-      localStorage.removeItem("token");
       window.location.href = "/login";
-    }
-  };
+    });
+};
 
   const handleLogout = () => {
     localStorage.removeItem("token");
