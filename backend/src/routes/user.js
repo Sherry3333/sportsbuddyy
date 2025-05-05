@@ -65,11 +65,11 @@ router.get("/", auth, async (req, res) => {
  *               email:
  *                 type: string
  *                 description: The email of the user
- *                 example: johndoe@example.com
+ *                 example: test1@test.com
  *               password:
  *                 type: string
  *                 description: The password of the user
- *                 example: password123
+ *                 example: 123456
  *     responses:
  *       200:
  *         description: Login successful
