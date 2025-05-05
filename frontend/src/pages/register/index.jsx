@@ -1,22 +1,16 @@
 import Logo from "./components/Logo";
 import RegisterForm from "./components/RegisterForm";
 import ShowcaseImage from "./components/ShowcaseImage";
-import "./index.less";
+import styles from "./index.module.less";
 
 const RegisterPage = () => {
   return (
-    <div className="register-container">
-      <header className="register-header">
+    <div className={styles.container}>
+      <div className={styles.reg_form}>
         <Logo />
-      </header>
-
-      <main className="register-main">
-        <div className="form-wrapper">
-          <RegisterForm />
-        </div>
-
-        <ShowcaseImage />
-      </main>
+        <RegisterForm />
+      </div>
+      <ShowcaseImage />
     </div>
   );
 };

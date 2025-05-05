@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider } from "antd";
-import HomePage from "./pages/home/index";
-import LoginPage from "./pages/login/index.module";
-import RegisterPage from "./pages/register/index";
+import HomePage from "./pages/home";
+import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
 import NotFound from "./pages/404";
 import {seedToken} from '@/assets/seedToken';
 function App() {

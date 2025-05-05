@@ -12,26 +12,26 @@ const TeamDetailCom = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const onJoinTeam = () => {
     joinTeam(activeCardId)?.then((res) => {
-      if(res?.code === 200){
-        message.success(res?.message ?? "join success!")
+      if (res?.code === 200) {
+        message.success(res?.message ?? "join success!");
       }
     });
-  }
+  };
 
   const onQuitTeam = () => {
     quitTeam(activeCardId)?.then((res) => {
-      if(res?.code === 200){
-        message.success(res?.message ?? "quit success!")
+      if (res?.code === 200) {
+        message.success(res?.message ?? "quit success!");
       }
     });
-  }
+  };
   const columns = [
     {
       title: "PLAYER",
       dataIndex: "username",
       key: "username",
       render: (text, record) => {
-        console.log("record:",record)
+        console.log("record:", record);
         return (
           <div className={styles.playerInfo}>
             <Avatar src={profileAvatar} alt="avatar" className={styles.avatar} />
@@ -44,13 +44,22 @@ const TeamDetailCom = () => {
       }
     },
     {
-      title: "email",
+      title: "LEVEL",
+      dataIndex: "level",
+      key: "level",
+      render: (level) => {
+        return <Tag color="purple">{level ?? "~"}</Tag>;
+      }
+    },
+    {
+      title: "PROFILE",
       dataIndex: "email",
       key: "email",
-      render: (text) => (
-        <Tag color="purple">
-          {text ?? "~"}
-        </Tag>
+      render: (text, record) => (
+        <>
+          <div style={{marginBottom:"5px"}}><Tag color="purple">email:{text ?? "~"}</Tag></div>
+          <Tag>sports:{record?.sports ?? "~"}</Tag>
+        </>
       )
     }
   ];
@@ -70,7 +79,9 @@ const TeamDetailCom = () => {
             <Button type="primary" onClick={onJoinTeam} className={styles.commonButton}>
               join now
             </Button>
-            <Button onClick={onQuitTeam} className={[styles.commonButton, styles.quitButton]}>quit</Button>
+            <Button onClick={onQuitTeam} className={[styles.commonButton, styles.quitButton]}>
+              quit
+            </Button>
           </div>
         )}
       </div>

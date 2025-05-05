@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import {message} from "antd";
 import { homeStore } from "@/domain/home/store/home.store";
 import { useNavigate } from "react-router-dom";
 import classnames from 'classnames';
 import styles from "./index.module.less";
+import { removeStorage } from "@/utils/helper";
 import { userStore } from "@/domain/user/store/user.store"; // Import userLogout method
 
 const LeftSideCompo = () => {
@@ -19,21 +21,12 @@ const LeftSideCompo = () => {
   }, []);
 
   const handleLogout = () => {
-    userLogout({})
+    userLogout()
       .then((res) => {
-        if (res.code === 200) {
-          console.log("Logout successful:", res.message);
-        } else {
-          console.warn("Unexpected logout response:", res);
-        }
+        removeStorage("token");
+        message.success(res?.message ?? "Logout success!");
+        navigate("/login"); // Redirect to login page
       })
-      .catch((error) => {
-        console.error("Logout failed:", error.message || error);
-      })
-      .finally(() => {
-        // 无论成功或失败都跳转
-        navigate("/login");
-      });
   };
 
   return (

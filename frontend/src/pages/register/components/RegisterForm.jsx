@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { Form, Input, Select, Button,message} from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
-import "@/pages/register/index.less";
+import styles from '../index.module.less';
 
 const { Option } = Select;
 
@@ -27,24 +27,24 @@ const RegisterForm = () => {
   };
 
   return (
-    <Form layout="vertical" onFinish={onFinish} className="custom-form">
-      <div className="form-header">
+    <Form layout="vertical" onFinish={onFinish} className={styles.custom_form}>
+      <div className={styles.form_header}>
         <h2>Sign up</h2>
       </div>
 
       <Form.Item label="Name" name="username" rules={[{ required: true }]}>
-        <Input />
+        <Input className={styles.input_height}/>
       </Form.Item>
 
       <Form.Item label="Gender" name="gender" rules={[{ required: true }]}>
-        <Select>
+        <Select className={styles.input_height}>
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
         </Select>
       </Form.Item>
 
       <Form.Item label="Sport" name="sports" rules={[{ required: true }]}>
-        <Select>
+        <Select className={styles.input_height}>
           <Option value="tennis">Tennis</Option>
           <Option value="badminton">Badminton</Option>
           <Option value="football">Football</Option>
@@ -53,7 +53,7 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item label="Level" name="level" rules={[{ required: true }]}>
-        <Select>
+        <Select className={styles.input_height}>
           <Option value="beginner">Beginner</Option>
           <Option value="intermediate">Intermediate</Option>
           <Option value="advanced">Advanced</Option>
@@ -62,20 +62,20 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
-        <Input />
+        <Input className={styles.input_height}/>
       </Form.Item>
 
       <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-        <Input.Password />
+        <Input.Password  className={styles.input_height}/>
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="signup-btn" loading={loading}>
+        <Button type="primary" className={styles.signup_btn} htmlType="submit" loading={loading}>
           Sign up
         </Button>
       </Form.Item>
 
-      <p className="login-tip">
+      <p>
         Already have an account? <a onClick={() => navigate("/login")}>Sign in</a>
       </p>
     </Form>

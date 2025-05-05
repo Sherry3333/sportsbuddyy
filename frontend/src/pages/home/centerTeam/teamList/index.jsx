@@ -1,12 +1,11 @@
 import styles from "./index.module.less";
-import classnames from 'classnames';
+import classnames from "classnames";
 import { homeStore } from "@/domain/home/store/home.store";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import defaultImg from "@/assets/img/sports/default.png";
 import profileLogo from "@/assets/img/profile_logo.png";
 import PeopleCom from "./people";
-import { useEffect,useState } from "react";
-
+import { useEffect, useState } from "react";
 
 const TeamListCom = () => {
   const selectLocId = homeStore((state) => state.selectLocId);
@@ -22,21 +21,21 @@ const TeamListCom = () => {
 
   useEffect(() => {
     getTeamList()?.then(() => {
-      setCurrentIndex(0); 
-    })
-  },[selectLocId])
+      setCurrentIndex(0);
+    });
+  }, [selectLocId]);
 
   const handleLeftClick = () => {
+    if(currentIndex <= 0) return;
     setFadeClass(styles.fadeOut); // 添加淡出动画
     setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex - 3 < 0 ? 0 : prevIndex - 3
-      ); // 更新索引
+      setCurrentIndex((prevIndex) => (prevIndex - 3 < 0 ? 0 : prevIndex - 3)); // 更新索引
       setFadeClass(styles.fadeIn); // 添加淡入动画
     }, 300); // 动画持续时间
   };
 
   const handleRightClick = () => {
+    if(currentIndex >= teamList.length - 1) return;
     setFadeClass(styles.fadeOut); // 添加淡出动画
     setTimeout(() => {
       setCurrentIndex((prevIndex) =>
@@ -52,40 +51,47 @@ const TeamListCom = () => {
 
   return (
     <div className={styles.teamListContainer}>
-    <div className={styles.header}>
-      <div className={styles.title}>Team List</div>
-      <div className={styles.navigation}>
-        <LeftCircleOutlined className={styles.icon} onClick={handleLeftClick} />
-        <RightCircleOutlined className={styles.icon} onClick={handleRightClick} />
+      <div className={styles.header}>
+        <div className={styles.title}>Team List</div>
+        <div className={styles.navigation}>
+          <LeftCircleOutlined className={styles.icon} onClick={handleLeftClick} />
+          <RightCircleOutlined className={styles.icon} onClick={handleRightClick} />
+        </div>
       </div>
-    </div>
-    <div className={`${styles.teamCards} ${fadeClass}`}>
-      {teamList.slice(currentIndex, currentIndex + 3).map((team) => (
-        <div 
-        className={classnames([styles.card_container, activeCardId === team._id ? styles.active : ''])} 
-        key={team._id} 
-        onClick={() => handleCardClick(team._id)} 
-        >
-          <div className={styles.card}>
-            <img src={defaultImg} alt={team.sport} className={styles.cardImage} />
-            <div className={styles.cardContent}>
-              <span className={styles.sportTag}>{sports?.[selectIndex]?.name ?? ""}</span>
-              <p className={styles.address}>{team.name} : {team.team_desc}</p>
-              <p className={styles.date}>{team.start_time} ~ {team.end_time}</p>
-              <PeopleCom num={3} />
-              <div className={styles.teamInfo}>
-                <img src={profileLogo} alt="Team Avatar" className={styles.avatar} />
-                <div>
-                  <p className={styles.teamName}>{team.teamName}</p>
-                  <p className={styles.averageLevel}>Average Level: {team.level}</p>
+      <div className={`${styles.teamCards} ${fadeClass}`}>
+        {teamList.slice(currentIndex, currentIndex + 3).map((team) => (
+          <div
+            className={classnames([
+              styles.card_container,
+              activeCardId === team._id ? styles.active : ""
+            ])}
+            key={team._id}
+            onClick={() => handleCardClick(team._id)}
+          >
+            <div className={styles.card}>
+              <img src={defaultImg} alt={team.sport} className={styles.cardImage} />
+              <div className={styles.cardContent}>
+                <span className={styles.sportTag}>{sports?.[selectIndex]?.name ?? ""}</span>
+                <p className={styles.address}>
+                  {team.name} : {team.team_desc}
+                </p>
+                <p className={styles.date}>
+                  {team.start_time} ~ {team.end_time}
+                </p>
+                <PeopleCom num={team?.current_num ?? 0} sum={team?.total_num ?? 10} />
+                <div className={styles.teamInfo}>
+                  <img src={profileLogo} alt="Team Avatar" className={styles.avatar} />
+                  <div>
+                    <p className={styles.teamName}>{team.teamName}</p>
+                    <p className={styles.averageLevel}>Average Level: {team.level}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
   );
 };
 export default TeamListCom;
