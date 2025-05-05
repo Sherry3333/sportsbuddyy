@@ -89,7 +89,7 @@ router.get("/list/:loc_id", auth, async (req, res) => {
       })
     );
 
-    res.apiSuccess(teams, "Teams fetched successfully", 200);
+    res.apiSuccess(teamsWithCurrentCount, "Teams fetched successfully", 200);
   } catch (error) {
     console.log(error);
     res.apiError("Internal server error", 500);
@@ -160,6 +160,9 @@ router.get("/users/:team_id", auth, async (req, res) => {
     const users = members.map((m) => ({
       username: m.user_id.username,
       email: m.user_id.email,
+      gender: m.user_id.gender,
+      sports: m.user_id.sports,
+      level: m.user_id.level,
     }));
 
     res.apiSuccess(
