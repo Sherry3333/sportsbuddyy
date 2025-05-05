@@ -7,19 +7,14 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/user/{id}:
+ * /api/user/:
  *   get:
  *     summary: Retrieve a user by ID
  *     description: Retrieve a specific user from the database using their ID.
  *     tags:
  *       - User
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the user to retrieve.
- *         schema:
- *           type: string
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A user object.
@@ -39,16 +34,17 @@ const router = express.Router();
  *       404:
  *         description: User not found.
  */
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/", auth, async (req, res) => {
+  const id = req.user.userId;
+
   try {
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.authorized("User not found", 404);
     }
-    res.json(user);
+    res.apiSuccess(user, "User retrieved successfully", 200);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.apiError("Internal server error", 500);
   }
 });
 
