@@ -33,3 +33,7 @@ export const _joinTeam = (id) => {
 export const _quitTeam = (id) => {
   return http.delete(`/api/team/quit/${id}`);
 }
+
+export const _getMyTeamList = (id) => {
+  return http.get(`/api/team/myteams`);
+}

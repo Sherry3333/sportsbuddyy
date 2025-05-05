@@ -7,6 +7,7 @@ import badminton from "@/assets/img/badminton.png";
 import basketball from "@/assets/img/basketball.png";
 import sports from "@/assets/img/sports.png";
 import { userStore } from "@/domain/user/store/user.store";
+import { homeStore } from "@/domain/home/store/home.store";
 
 
 const getSportIcon = (teamName) => {
@@ -20,7 +21,7 @@ const getSportIcon = (teamName) => {
 
 const Profile = () => {
   const getUserInfo = userStore((state) => state.getUserInfo);
-
+  const getUserTeams = homeStore((state) => state.getMyTeamList);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [userTeams, setUserTeams] = useState([]);
@@ -46,6 +47,9 @@ const Profile = () => {
 
   const fetchUserTeams = async () => {
     try {
+      //TODO get teams from getUserTeams inteface.
+
+      
       const token = localStorage.getItem("token");
       const response = await axios.get("/api/team/myteams", {
         headers: {
