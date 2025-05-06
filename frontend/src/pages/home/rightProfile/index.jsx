@@ -9,7 +9,6 @@ import sports from "@/assets/img/sports.png";
 import { userStore } from "@/domain/user/store/user.store";
 import { homeStore } from "@/domain/home/store/home.store";
 
-
 const getSportIcon = (teamName) => {
   const name = teamName.toLowerCase();
   if (name.includes("tennis")) return tennis;
@@ -45,34 +44,28 @@ const Profile = () => {
     };
   }, []);
 
-  const fetchUserTeams = async () => {
-    try {
-      //TODO get teams from getUserTeams inteface.
-
-      
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/team/myteams", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+  const fetchUserTeams = () => {
+    //TODO get teams from getUserTeams inteface.
+    getUserTeams()
+      .then((res) => {
+        setUserTeams(res.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user teams:", error);
       });
-      if (response.data.code === 200) {
-        setUserTeams(response.data.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch user teams:", error);
-    }
   };
 
   const fetchUserData = () => {
-    const user = getUserInfo().then((res) => {
-      const user = res.data;
-      setUsername(user.username);
-    }).catch((error) => {
-      console.error("Failed to parse token:", error);
-      window.location.href = "/login";
-    });
-};
+    const user = getUserInfo()
+      .then((res) => {
+        const user = res.data;
+        setUsername(user.username);
+      })
+      .catch((error) => {
+        console.error("Failed to parse token:", error);
+        window.location.href = "/login";
+      });
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
