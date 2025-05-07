@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "init-db": "node src/scripts/init-db.js",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
