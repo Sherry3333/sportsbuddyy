@@ -41,7 +41,7 @@ const CreateTeamModal = () => {
   return (
     <div>
       <Modal
-        title="Create Team"
+        title="Create team"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null} // 自定义底部按钮
