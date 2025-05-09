@@ -87,7 +87,7 @@ jobs:
 
   deploy-on-ec2:
     needs: [deploy-frontend, deploy-backend]
-    if: needs.deploy-frontend.result == 'success' || needs.deploy-backend.result == 'success'
+    if: always() && (needs.deploy-frontend.result == 'success' || needs.deploy-backend.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - name: Connect and pull images + restart services
