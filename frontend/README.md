@@ -64,3 +64,37 @@
   ```
   yarn build    # or npm run build
   ```
+
+# Running Tests
+
+To run the test files in this project, use the following commands:
+
+1. **Run all tests:**
+   ```
+   yarn test
+   # or
+   npm run test
+   ```
+
+3. **Run tests in watch mode (auto re-run on file changes):**
+   ```
+   yarn test:watch
+   # or
+   npm run test:watch
+   ```
+
+4. **Run tests with UI:**
+   ```
+   yarn test:ui
+   # or
+   npm run test:ui
+   ```
+
+5. **Run tests with coverage report:**
+   ```
+   yarn test:coverage
+   # or
+   npm run test:coverage
+   ```
+
+Test files should be placed in the `__tests__` directory or named with `.test.js/.test.jsx` or `.spec.js/.spec.jsx` extensions. The test runner used is [Vitest](https://vitest.dev/), and the recommended testing library for React components is [@testing-library/react](https://testing-library.com/).

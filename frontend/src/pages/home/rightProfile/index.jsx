@@ -1,13 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
-import axios from "axios";
 import tennis from "@/assets/img/tennis.png";
 import football from "@/assets/img/football.png";
 import badminton from "@/assets/img/badminton.png";
 import basketball from "@/assets/img/basketball.png";
 import sports from "@/assets/img/sports.png";
 import { userStore } from "@/domain/user/store/user.store";
-import { homeStore } from "@/domain/home/store/home.store";
 
 const getSportIcon = (teamName) => {
   const name = teamName.toLowerCase();
@@ -19,58 +17,22 @@ const getSportIcon = (teamName) => {
 };
 
 const Profile = () => {
+  const userTeams = userStore((state) => state.userTeams);
+  const getMyTeamList = userStore((state) => state.getMyTeamList);
   const getUserInfo = userStore((state) => state.getUserInfo);
-  const getUserTeams = homeStore((state) => state.getMyTeamList);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState("");
-  const [userTeams, setUserTeams] = useState([]);
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     fetchUserData();
-    fetchUserTeams();
+    getMyTeamList();
   }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const fetchUserTeams = () => {
-    //TODO get teams from getUserTeams inteface.
-    getUserTeams()
-      .then((res) => {
-        setUserTeams(res.data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user teams:", error);
-      });
-  };
 
   const fetchUserData = () => {
-    const user = getUserInfo()
+    getUserInfo()
       .then((res) => {
         const user = res.data;
         setUsername(user.username);
       })
-      .catch((error) => {
-        console.error("Failed to parse token:", error);
-        window.location.href = "/login";
-      });
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-    setIsDropdownOpen(false);
   };
 
   const getAvatarUrl = (username) => {
@@ -81,17 +43,6 @@ const Profile = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>Profile</div>
-        <div className={styles.dropdownContainer} ref={dropdownRef}>
-          {!isDropdownOpen ? (
-            <button className={styles.moreBtn} onClick={() => setIsDropdownOpen(true)}>
-              ⋮
-            </button>
-          ) : (
-            <button className={styles.logoutBtn} onClick={handleLogout}>
-              Logout
-            </button>
-          )}
-        </div>
       </div>
 
       <div className={styles.info}>
@@ -125,7 +76,7 @@ const Profile = () => {
                     <div className={styles.teamAddress}>{team.time}</div>
                   </div>
                 </div>
-                <button className={styles.detailBtn}>Detail</button>
+                {/* <button className={styles.detailBtn}>Detail</button> */}
               </div>
             ))
           ) : (

@@ -105,6 +105,8 @@
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
+    height: calc(100vh - 322px);
+    overflow: auto;
   }
 
   .noTeamsMessage {
@@ -135,7 +137,7 @@
 
   .teamItem {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
   }
 
@@ -194,9 +196,4 @@
   &:hover {
     background: #efe5ff;
   }
-}
-
-.dropdownContainer {
-  position: relative;
-  display: inline-block;
 }

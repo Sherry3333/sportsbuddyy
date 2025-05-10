@@ -9,9 +9,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
-        // 全局变量/混入（可选配置）
+        // Global variables/mixins (optional configuration)
         additionalData: `@import "@/assets/variables.less";`,
-        javascriptEnabled: true // 支持 Less 中的 JavaScript 表达式
+        javascriptEnabled: true // Support JavaScript expressions in Less
       }
     }
   },

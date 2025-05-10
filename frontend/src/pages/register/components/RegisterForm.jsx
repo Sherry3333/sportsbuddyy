@@ -1,8 +1,8 @@
-import React,{useState} from "react";
-import { Form, Input, Select, Button,message} from "antd";
+import React, { useState } from "react";
+import { Form, Input, Select, Button, message } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
-import styles from '../index.module.less';
+import styles from "../index.module.less";
 
 const { Option } = Select;
 
@@ -13,27 +13,26 @@ const RegisterForm = () => {
 
   const onFinish = (values) => {
     setLoading(true);
-    registerUser(values).then((res) => {
-      message.success({
-        content: res.message,
-        duration: 1.5,
-        onClose: () => {
-          navigate("/login", { replace: true });
-        }
+    registerUser(values)
+      .then((res) => {
+        message.success({
+          content: res.message,
+          duration: 1.5,
+          onClose: () => {
+            navigate("/login", { replace: true });
+          }
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    }).finally(() => {
-      setLoading(false);
-    })
   };
 
   return (
     <Form layout="vertical" onFinish={onFinish} className={styles.custom_form}>
-      <div className={styles.form_header}>
-        <h2>Sign up</h2>
-      </div>
-
+      <div className={styles.form_header}>Sign up</div>
       <Form.Item label="Name" name="username" rules={[{ required: true }]}>
-        <Input className={styles.input_height}/>
+        <Input className={styles.input_height} />
       </Form.Item>
 
       <Form.Item label="Gender" name="gender" rules={[{ required: true }]}>
@@ -62,11 +61,11 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
-        <Input className={styles.input_height}/>
+        <Input className={styles.input_height} />
       </Form.Item>
 
       <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-        <Input.Password  className={styles.input_height}/>
+        <Input.Password className={styles.input_height} />
       </Form.Item>
 
       <Form.Item>

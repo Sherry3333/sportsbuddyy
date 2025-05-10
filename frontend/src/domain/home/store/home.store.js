@@ -161,19 +161,6 @@ export const homeStore = create((set, get) => ({
     });
   },
 
-  getMyTeamList: () => {
-    return new Promise((resolve, reject) => {
-      _getMyTeamList()
-        .then((res) => {
-          set({ teamList: res.data });
-          resolve(res);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  },
-
   changeSelectLocId: (id) => {
     set({ selectLocId: id });
   },
@@ -182,5 +169,5 @@ export const homeStore = create((set, get) => ({
   },
   setActiveCardId: (id) => {
     set({ activeCardId: id });
-  }
+  },
 }));

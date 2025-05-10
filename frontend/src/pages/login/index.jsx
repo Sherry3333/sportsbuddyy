@@ -18,7 +18,7 @@ const LoginPage = () => {
   };
 
   const handleRegisterClick = () => {
-    navigate("/register"); 
+    navigate("/register"); // Navigate to registration page
   };
 
   return (
@@ -57,7 +57,7 @@ const LoginPage = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" className={styles.signin_btn} htmlType="submit">
                 Sign in
               </Button>
             </Form.Item>

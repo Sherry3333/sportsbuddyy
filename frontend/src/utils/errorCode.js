@@ -1,4 +1,4 @@
-//TODO 需要问后端具体的
+//TODO Need to ask backend for specific details
 export default {
   '400': 'Bad Request',
   '401': 'Unauthorized',

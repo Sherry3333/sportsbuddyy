@@ -4,15 +4,15 @@
   box-sizing: border-box;
 }
 a {
-  text-decoration: none; /* 去掉链接下划线 */
-  color: inherit; /* 链接颜色继承父元素 */
+  text-decoration: none; /* Remove link underline */
+  color: inherit; /* Link color inherits from parent element */
 }
 
 ul, ol {
-  list-style: none; /* 去掉列表的默认样式 */
+  list-style: none; /* Remove default list style */
 }
 
 table {
-  border-collapse: collapse; /* 合并表格边框 */
+  border-collapse: collapse; /* Merge table borders */
   border-spacing: 0;
 }

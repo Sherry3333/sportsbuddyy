@@ -4,15 +4,15 @@
   border-top-right-radius: @border-radius;
 
   .teamCards {
-    transition: opacity 0.3s ease-in-out; /* 动画过渡效果 */
+    transition: opacity 0.3s ease-in-out; /* Animation transition effect */
   }
 
   .fadeOut {
-    opacity: 0; /* 淡出 */
+    opacity: 0; /* Fade out */
   }
 
   .fadeIn {
-    opacity: 1; /* 淡入 */
+    opacity: 1; /* Fade in */
   }
 }
 
@@ -46,13 +46,20 @@
 }
 
 .teamCards {
-  display: flex;
-  justify-content: space-between;
   background-color: @bg-color-secondary;
+
+  &.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
 }
 
 .card_container {
   width: 268px;
+  float: left;
+  margin-left: 10%;
+  margin-top: 20px;
   border-radius: @border-radius;
   transition:
     transform 0.3s ease,

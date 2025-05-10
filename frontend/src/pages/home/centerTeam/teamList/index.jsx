@@ -2,7 +2,7 @@ import styles from "./index.module.less";
 import classnames from "classnames";
 import { homeStore } from "@/domain/home/store/home.store";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
-import defaultImg from "@/assets/img/sports/default.png";
+import showcase1 from "@/assets/img/showcase4.jpg";
 import profileLogo from "@/assets/img/profile_logo.png";
 import PeopleCom from "./people";
 import { useEffect, useState } from "react";
@@ -16,8 +16,8 @@ const TeamListCom = () => {
   const activeCardId = homeStore((state) => state.activeCardId);
   const setActiveCardId = homeStore((state) => state.setActiveCardId);
 
-  const [currentIndex, setCurrentIndex] = useState(0); // 当前显示的起始索引
-  const [fadeClass, setFadeClass] = useState(""); // 控制淡入淡出的动画
+  const [currentIndex, setCurrentIndex] = useState(0); // Current starting index
+  const [fadeClass, setFadeClass] = useState(""); // Control fade animation
 
   useEffect(() => {
     getTeamList()?.then(() => {
@@ -27,26 +27,27 @@ const TeamListCom = () => {
 
   const handleLeftClick = () => {
     if(currentIndex <= 0) return;
-    setFadeClass(styles.fadeOut); // 添加淡出动画
+    const newIndex = currentIndex - 3;
+    if(newIndex < 0) return;
+    setFadeClass(styles.fadeOut); // Add fade out animation
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex - 3 < 0 ? 0 : prevIndex - 3)); // 更新索引
-      setFadeClass(styles.fadeIn); // 添加淡入动画
-    }, 300); // 动画持续时间
+      setCurrentIndex(newIndex); // Update index
+      setFadeClass(styles.fadeIn); // Add fade in animation
+    }, 300); // Animation duration
   };
 
   const handleRightClick = () => {
-    if(currentIndex >= teamList.length - 1) return;
-    setFadeClass(styles.fadeOut); // 添加淡出动画
+    const newIndex = currentIndex + 3;
+    if(newIndex >= teamList.length) return;
+    setFadeClass(styles.fadeOut); // Add fade out animation
     setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex + 3 >= teamList.length ? prevIndex : prevIndex + 3
-      ); // 更新索引
-      setFadeClass(styles.fadeIn); // 添加淡入动画
-    }, 300); // 动画持续时间
+      setCurrentIndex(newIndex); // Update index
+      setFadeClass(styles.fadeIn); // Add fade in animation
+    }, 300); // Animation duration
   };
 
   const handleCardClick = (id) => {
-    setActiveCardId(id); // 设置当前选中的卡片 ID
+    setActiveCardId(id); // Set current selected card ID
   };
 
   return (
@@ -58,7 +59,7 @@ const TeamListCom = () => {
           <RightCircleOutlined className={styles.icon} onClick={handleRightClick} />
         </div>
       </div>
-      <div className={`${styles.teamCards} ${fadeClass}`}>
+      <div className={`${styles.teamCards} ${styles.clearfix} ${fadeClass}`}>
         {teamList.slice(currentIndex, currentIndex + 3).map((team) => (
           <div
             className={classnames([
@@ -69,7 +70,7 @@ const TeamListCom = () => {
             onClick={() => handleCardClick(team._id)}
           >
             <div className={styles.card}>
-              <img src={defaultImg} alt={team.sport} className={styles.cardImage} />
+              <img src={showcase1} alt={team.sport} className={styles.cardImage} />
               <div className={styles.cardContent}>
                 <span className={styles.sportTag}>{sports?.[selectIndex]?.name ?? ""}</span>
                 <p className={styles.address}>
