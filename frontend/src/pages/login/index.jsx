@@ -18,7 +18,7 @@ const LoginPage = () => {
   };
 
   const handleRegisterClick = () => {
-    navigate("/register"); // 跳转到注册页面
+    navigate("/register"); // Navigate to registration page
   };
 
   return (

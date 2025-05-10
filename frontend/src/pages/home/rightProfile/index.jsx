@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
-import axios from "axios";
 import tennis from "@/assets/img/tennis.png";
 import football from "@/assets/img/football.png";
 import badminton from "@/assets/img/badminton.png";
 import basketball from "@/assets/img/basketball.png";
 import sports from "@/assets/img/sports.png";
+import { userStore } from "@/domain/user/store/user.store";
 
 const getSportIcon = (teamName) => {
   const name = teamName.toLowerCase();
@@ -17,44 +17,14 @@ const getSportIcon = (teamName) => {
 };
 
 const Profile = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const userTeams = userStore((state) => state.userTeams);
+  const getMyTeamList = userStore((state) => state.getMyTeamList);
   const [username, setUsername] = useState("");
-  const [userTeams, setUserTeams] = useState([]);
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     fetchUserData();
-    fetchUserTeams();
+    getMyTeamList();
   }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const fetchUserTeams = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("/api/team/myteams", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      if (response.data.code === 200) {
-        setUserTeams(response.data.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch user teams:", error);
-    }
-  };
 
   const fetchUserData = () => {
     try {
@@ -85,12 +55,6 @@ const Profile = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-    setIsDropdownOpen(false);
-  };
-
   const getAvatarUrl = (username) => {
     return `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(username || "default")}`;
   };
@@ -99,17 +63,6 @@ const Profile = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>Profile</div>
-        <div className={styles.dropdownContainer} ref={dropdownRef}>
-          {!isDropdownOpen ? (
-            <button className={styles.moreBtn} onClick={() => setIsDropdownOpen(true)}>
-              ⋮
-            </button>
-          ) : (
-            <button className={styles.logoutBtn} onClick={handleLogout}>
-              Logout
-            </button>
-          )}
-        </div>
       </div>
 
       <div className={styles.info}>
@@ -143,7 +96,7 @@ const Profile = () => {
                     <div className={styles.teamAddress}>{team.time}</div>
                   </div>
                 </div>
-                <button className={styles.detailBtn}>Detail</button>
+                {/* <button className={styles.detailBtn}>Detail</button> */}
               </div>
             ))
           ) : (

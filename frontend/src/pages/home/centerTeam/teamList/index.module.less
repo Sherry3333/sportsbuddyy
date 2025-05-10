@@ -46,13 +46,19 @@
 }
 
 .teamCards {
-  display: flex;
-  justify-content: space-between;
   background-color: @bg-color-secondary;
+
+  &.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
 }
 
 .card_container {
   width: 268px;
+  float: left;
+  margin-left: 10%;
   border-radius: @border-radius;
   transition:
     transform 0.3s ease,

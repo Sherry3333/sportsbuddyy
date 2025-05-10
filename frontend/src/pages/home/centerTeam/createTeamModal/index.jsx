@@ -44,20 +44,20 @@ const CreateTeamModal = () => {
         title="Create Team"
         open={isModalOpen}
         onCancel={handleCancel}
-        footer={null} // 自定义底部按钮
+        footer={null} // Custom footer buttons
         className={styles.modal}
         width={600}
       >
         <Form
           layout="vertical"
-          onFinish={handleCreate} // 提交表单时触发
+          onFinish={handleCreate} // Trigger on form submission
           className={styles.form}
           initialValues={{
             teamSize: 10,
             teamLevel: "Level 3"
           }}
         >
-          {/* 第一行：Team Name 和 Team Description */}
+          {/* First row: Team Name and Team Description */}
           <div className={styles.row}>
             <Form.Item
               name="teamName"
@@ -77,7 +77,7 @@ const CreateTeamModal = () => {
             </Form.Item>
           </div>
 
-          {/* 第二行：Select Sport, Team Size, Team Level, Gym Location */}
+          {/* Second row: Select Sport, Team Size, Team Level, Gym Location */}
           <div className={styles.row}>
             <Form.Item
               name="teamSize"
@@ -110,7 +110,7 @@ const CreateTeamModal = () => {
             </Form.Item>
           </div>
 
-          {/* 第三行：Start Date 和 End Date */}
+          {/* Third row: Start Date and End Date */}
           <div className={styles.row}>
             <Form.Item
               name="startDate"
@@ -122,7 +122,7 @@ const CreateTeamModal = () => {
             </Form.Item>
           </div>
 
-          {/* 底部按钮 */}
+          {/* Bottom buttons */}
           <div className={styles.footer}>
             <Button className={styles.cancelButton} onClick={handleCancel}>
               Cancel

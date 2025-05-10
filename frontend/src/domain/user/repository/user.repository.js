@@ -15,3 +15,7 @@ export const registerUser = (params) => {
 export const logout = () => {
   return http.post("/api/user/logout");
 };
+
+export const _fetchMyTeams = () => {
+  return http.get("/api/team/myteams")
+}

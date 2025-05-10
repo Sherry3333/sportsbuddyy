@@ -15,11 +15,12 @@ export const homeStore = create((set, get) => ({
   selectIndex: 0, //selected index
   locList: [], // location list
   selectLocId: "", // selected location id
-  teamList:[],//team list
+  teamList: [], //team list
   isModalOpen: false, // create team modal open state
   addLocLoading: false, // add location loading state
-  activeCardId:null,// active card id
-  teamDetailUsersList:[],// team detail about users
+  activeCardId: null, // active card id
+  teamDetailUsersList: [], // team detail about users
+  myTeamList: [], //my team list
 
   getSportsList: () => {
     return new Promise((resolve, reject) => {
@@ -122,10 +123,10 @@ export const homeStore = create((set, get) => ({
     });
   },
 
-  getTeamUsersList:() => {
+  getTeamUsersList: () => {
     const activeCardId = get().activeCardId;
     if (!activeCardId) return;
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       _getTeamUsersList(activeCardId)
         .then((res) => {
           set({ teamDetailUsersList: res.data });
@@ -134,11 +135,11 @@ export const homeStore = create((set, get) => ({
         .catch((error) => {
           reject(error);
         });
-    })
+    });
   },
 
-  joinTeam:(id) => {
-    return new Promise((resolve,reject) => {
+  joinTeam: (id) => {
+    return new Promise((resolve, reject) => {
       _joinTeam(id)
         .then((res) => {
           resolve(res);
@@ -146,10 +147,10 @@ export const homeStore = create((set, get) => ({
         .catch((error) => {
           reject(error);
         });
-    })
+    });
   },
-  quitTeam:(id) => {
-    return new Promise((resolve,reject) => {
+  quitTeam: (id) => {
+    return new Promise((resolve, reject) => {
       _quitTeam(id)
         .then((res) => {
           resolve(res);
@@ -157,7 +158,7 @@ export const homeStore = create((set, get) => ({
         .catch((error) => {
           reject(error);
         });
-    })
+    });
   },
 
   changeSelectLocId: (id) => {
@@ -166,7 +167,7 @@ export const homeStore = create((set, get) => ({
   setModalState: (isOpen) => {
     set({ isModalOpen: isOpen });
   },
-  setActiveCardId:(id) => {
+  setActiveCardId: (id) => {
     set({ activeCardId: id });
-  }
+  },
 }));
