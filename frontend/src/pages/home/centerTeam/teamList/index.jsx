@@ -27,20 +27,21 @@ const TeamListCom = () => {
 
   const handleLeftClick = () => {
     if(currentIndex <= 0) return;
+    const newIndex = currentIndex - 3;
+    if(newIndex < 0) return;
     setFadeClass(styles.fadeOut); // Add fade out animation
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex - 3 < 0 ? 0 : prevIndex - 3)); // Update index
+      setCurrentIndex(newIndex); // Update index
       setFadeClass(styles.fadeIn); // Add fade in animation
     }, 300); // Animation duration
   };
 
   const handleRightClick = () => {
-    if(currentIndex >= teamList.length - 1) return;
+    const newIndex = currentIndex + 3;
+    if(newIndex >= teamList.length) return;
     setFadeClass(styles.fadeOut); // Add fade out animation
     setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex + 3 >= teamList.length ? prevIndex : prevIndex + 3
-      ); // Update index
+      setCurrentIndex(newIndex); // Update index
       setFadeClass(styles.fadeIn); // Add fade in animation
     }, 300); // Animation duration
   };

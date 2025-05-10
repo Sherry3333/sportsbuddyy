@@ -4,7 +4,7 @@ import errorCode from "./errorCode";
 import { message as antdMessage, Modal } from "antd";
 import { removeStorage,getStorage } from "./helper";
 
-// 创建实例并配置基地址
+// Create instance and configure base URL
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
@@ -13,13 +13,13 @@ const service = axios.create({
   }
 });
 
-// 请求拦截器
+// Request interceptor
 service.interceptors.request.use(
   (config) => {
-    // 标准化 headers 对象
+    // Standardize headers object
     config.headers = config.headers || {};
 
-    // 携带 Token
+    // Add Token
     const token = getStorage("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
