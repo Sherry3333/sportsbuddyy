@@ -156,19 +156,26 @@ router.post("/register", async (req, res) => {
     const { username, password, gender, sports, level, email } = req.body;
 
     // check if username already exists
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
+    const existingUserName = await User.findOne({ username });
+    if (existingUserName) {
       return res.apiSuccess(null, "Username already exists", 400);
     }
-
+    
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.apiSuccess(null, "Email already exists", 400);
+    }
+    
+    // check if email already exists
     // create new user
     const user = new User({ username, password, gender, sports, level, email });
+    console.log("user created", user);
     await user.save();
 
     res.apiSuccess(null, "user created successfully", 200);
   } catch (error) {
     console.log(error);
-    res.apiError("Internal server error", 500);
+    res.apiError("Internal server error.", 500);
   }
 });
 
