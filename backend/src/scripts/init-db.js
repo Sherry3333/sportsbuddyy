@@ -45,7 +45,15 @@ console.log(`Inserted ${usersResponse.length} users into the database`);
 const sports = [
     { name: "Badminton", info: "A racket sport played with a shuttlecock" },
     { name: "Squash", info: "A fast-paced racket sport played in an enclosed court" },
-    { name: "Basketball", info: "A team sport played with a round ball" }
+    { name: "Basketball", info: "A team sport played with a round ball" },
+    { name: "Tennis", info: "A racket sport played on a court with a net" },
+    { name: "Football", info: "A team sport played with a round ball, aiming to score goals" },
+    { name: "Running", info: "An individual sport involving fast-paced movement on foot" },
+    { name: "Golf", info: "A precision sport where players hit balls into holes on a course" },
+    { name: "Swimming", info: "A water sport involving movement through water using limbs" },
+    { name: "Cycling", info: "A sport that involves riding a bicycle for speed or endurance" },
+    { name: "Yoga", info: "A physical and mental practice involving postures and breathing" },
+    { name: "Volleyball", info: "A team sport where players hit a ball over a net using their hands" }
 ];
 const sportsResponse = await Sport.insertMany(sports);
 console.log(`Inserted ${sportsResponse.length} sports into the database`);
