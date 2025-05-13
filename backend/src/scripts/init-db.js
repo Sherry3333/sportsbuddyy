@@ -60,43 +60,206 @@ console.log(`Inserted ${sportsResponse.length} sports into the database`);
 
 await Location.deleteMany({});
 const locations = [
-    { name: "Badminton North Harbour", description: "A major badminton centre in North Shore, Auckland", sports_id: sportsResponse[0]._id },
-    { name: "Gillies Avenue Badminton Club", description: "A community badminton club in Epsom, Auckland", sports_id: sportsResponse[0]._id },
-    { name: "Auckland Badminton Stadium", description: "A central venue for badminton tournaments and training", sports_id: sportsResponse[0]._id },
-    { name: "Remuera Rackets Club", description: "Premium squash courts available in central Auckland", sports_id: sportsResponse[1]._id },
-    { name: "North Shore Squash Club", description: "Popular squash venue in Takapuna", sports_id: sportsResponse[1]._id },
-    { name: "Auckland Squash Club", description: "A long-established squash facility in Eden Terrace", sports_id: sportsResponse[1]._id },
-    { name: "YMCA City Stadium", description: "Indoor basketball courts in Auckland CBD", sports_id: sportsResponse[2]._id },
-    { name: "Trusts Arena", description: "A multi-sport stadium in Henderson with basketball facilities", sports_id: sportsResponse[2]._id },
-    { name: "AUT Sport & Fitness Centre", description: "University gym with full-sized basketball courts", sports_id: sportsResponse[2]._id }
+    // Badminton
+    { name: "North Harbour Badminton Centre", description: "A major badminton venue with multiple courts in North Shore", sports_id: sportsResponse[0]._id },
+    { name: "Gillies Avenue Badminton Club", description: "A community-focused badminton facility in Epsom", sports_id: sportsResponse[0]._id },
+    { name: "Auckland Badminton Stadium", description: "A central venue for tournaments and casual play", sports_id: sportsResponse[0]._id },
+
+    // Squash
+    { name: "Remuera Rackets Club", description: "Premium squash and tennis courts in central Auckland", sports_id: sportsResponse[1]._id },
+    { name: "North Shore Squash Club", description: "A modern squash venue popular among North Shore locals", sports_id: sportsResponse[1]._id },
+    { name: "Auckland Squash Club", description: "A long-standing squash facility in Eden Terrace", sports_id: sportsResponse[1]._id },
+
+    // Basketball
+    { name: "YMCA City Stadium", description: "Indoor courts available for casual and league basketball", sports_id: sportsResponse[2]._id },
+    { name: "Trusts Arena", description: "Multi-sport stadium in Henderson with full basketball facilities", sports_id: sportsResponse[2]._id },
+    { name: "AUT Sport & Fitness Centre", description: "University gym with full-sized indoor courts", sports_id: sportsResponse[2]._id },
+
+    // Tennis
+    { name: "Stanley Street Tennis Centre", description: "Premier tennis facility near Auckland Domain", sports_id: sportsResponse[3]._id },
+    { name: "Albany Tennis Park", description: "Large complex with indoor and outdoor tennis courts", sports_id: sportsResponse[3]._id },
+    { name: "Mission Bay Tennis Club", description: "Scenic community club near Auckland’s eastern beaches", sports_id: sportsResponse[3]._id },
+
+    // Football
+    { name: "Western Springs Football Club", description: "One of Auckland’s largest and most active football clubs", sports_id: sportsResponse[4]._id },
+    { name: "North Harbour Stadium", description: "Stadium for professional and community football events", sports_id: sportsResponse[4]._id },
+    { name: "Keith Hay Park", description: "A public park with multiple grass football fields", sports_id: sportsResponse[4]._id },
+
+    // Running
+    { name: "Cornwall Park", description: "Popular park with scenic running trails and open fields", sports_id: sportsResponse[5]._id },
+    { name: "Tamaki Drive", description: "Seaside running path stretching from CBD to Mission Bay", sports_id: sportsResponse[5]._id },
+    { name: "Western Springs Park", description: "Flat, shaded track ideal for joggers and casual runners", sports_id: sportsResponse[5]._id },
+
+    // Golf
+    { name: "Auckland Golf Club", description: "Historic and exclusive golf course in South Auckland", sports_id: sportsResponse[6]._id },
+    { name: "North Shore Golf Club", description: "Well-maintained course suitable for all skill levels", sports_id: sportsResponse[6]._id },
+    { name: "Chamberlain Park Golf Course", description: "Public 18-hole course in Mt Albert", sports_id: sportsResponse[6]._id },
+
+    // Swimming
+    { name: "Parnell Baths", description: "Outdoor saltwater swimming complex near the waterfront", sports_id: sportsResponse[7]._id },
+    { name: "Lloyd Elsmore Pool", description: "Modern indoor pool with lanes and leisure facilities", sports_id: sportsResponse[7]._id },
+    { name: "Albany Stadium Pool", description: "Aquatic centre with heated pools and family zones", sports_id: sportsResponse[7]._id },
+
+    // Cycling
+    { name: "Woodhill Mountain Bike Park", description: "Popular forest park with marked MTB trails", sports_id: sportsResponse[8]._id },
+    { name: "Lightpath Cycleway", description: "Iconic pink elevated path for city cycling", sports_id: sportsResponse[8]._id },
+    { name: "Twin Streams Pathway", description: "Scenic riverside cycling route in West Auckland", sports_id: sportsResponse[8]._id },
+
+    // Yoga
+    { name: "Yoga Ground", description: "Peaceful studio in Mt Eden offering various yoga styles", sports_id: sportsResponse[9]._id },
+    { name: "Om Yoga Studio", description: "Modern yoga studio in Stonefields with expert instructors", sports_id: sportsResponse[9]._id },
+    { name: "Eastwest Yoga", description: "Popular inner-city yoga centre for all levels", sports_id: sportsResponse[9]._id },
+
+    // Volleyball
+    { name: "Gillies Avenue Volleyball Centre", description: "Indoor volleyball facility used for social and competitive play", sports_id: sportsResponse[10]._id },
+    { name: "AUT North Volleyball Gym", description: "Professional indoor court located at AUT campus", sports_id: sportsResponse[10]._id },
+    { name: "Trusts Arena Volleyball Hall", description: "Large-scale venue hosting volleyball tournaments", sports_id: sportsResponse[10]._id }
 ];
+
 
 const locationsResponse = await Location.insertMany(locations);
 console.log(`Inserted ${locationsResponse.length} locations into the database`);
 
 await Team.deleteMany({});
 const teams = [
-    // Badminton (locations 0-2)
-    { name: "Harbour Smashers", loc_id: locationsResponse[0]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Fun beginner badminton group", image: "badmintonation.png", total_num: 8 },
-    { name: "Harbour Pros", loc_id: locationsResponse[0]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Advanced", team_desc: "Advanced players only", image: "badmintonation.png", total_num: 10 },
-    { name: "Gillies Flyers", loc_id: locationsResponse[1]._id, start_time: "Tue 5PM", end_time: "Tue 6PM", level: "Beginner", team_desc: "Learn and play casually", image: "badmintonation.png", total_num: 8 },
-    { name: "Gillies Elite", loc_id: locationsResponse[1]._id, start_time: "Thu 6PM", end_time: "Thu 7PM", level: "Advanced", team_desc: "Training for tournaments", image: "badmintonation.png", total_num: 12 },
-    { name: "Central Shuttlers", loc_id: locationsResponse[2]._id, start_time: "Sat 9AM", end_time: "Sat 10AM", level: "Intermediate", team_desc: "Weekly game group", image: "badmintonation.png", total_num: 10 },
-    { name: "Central Smash", loc_id: locationsResponse[2]._id, start_time: "Sun 10AM", end_time: "Sun 11AM", level: "Beginner", team_desc: "Newcomer friendly", image: "badmintonation.png", total_num: 6 },
+    // 0. Harbour Badminton Centre - Badminton
+    { name: "Harbour Smashers", loc_id: locationsResponse[0]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Beginner-friendly group to learn the basics.", image: "badmintonation.png", total_num: 8 },
+    { name: "Harbour Aces", loc_id: locationsResponse[0]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Weekly fun games with mixed skills.", image: "badmintonation.png", total_num: 10 },
+    { name: "Harbour Pros", loc_id: locationsResponse[0]._id, start_time: "Fri 8PM", end_time: "Fri 9PM", level: "Advanced", team_desc: "Competitive games for advanced players.", image: "badmintonation.png", total_num: 12 },
 
-    // Squash (locations 3-5)
-    { name: "Remuera Rookies", loc_id: locationsResponse[3]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Intro to squash", image: "default.png", total_num: 6 },
-    { name: "Remuera Kings", loc_id: locationsResponse[3]._id, start_time: "Fri 5PM", end_time: "Fri 6PM", level: "Advanced", team_desc: "Strong competition group", image: "default.png", total_num: 10 },
-    { name: "Shore Smashers", loc_id: locationsResponse[4]._id, start_time: "Wed 6PM", end_time: "Wed 7PM", level: "Intermediate", team_desc: "Regular game night", image: "default.png", total_num: 8 },
-    { name: "Shore Warriors", loc_id: locationsResponse[4]._id, start_time: "Sun 4PM", end_time: "Sun 5PM", level: "Beginner", team_desc: "Fun and social play", image: "default.png", total_num: 8 },
-    { name: "Eden Elite", loc_id: locationsResponse[5]._id, start_time: "Sat 11AM", end_time: "Sat 12PM", level: "Advanced", team_desc: "Only for serious players", image: "default.png", total_num: 10 },
-    { name: "Eden Learners", loc_id: locationsResponse[5]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Learning basics", image: "default.png", total_num: 6 },
+    // 1. Gillies Avenue Badminton Club - Badminton
+    { name: "Gillies Beginners", loc_id: locationsResponse[1]._id, start_time: "Tue 5PM", end_time: "Tue 6PM", level: "Beginner", team_desc: "For newcomers and casual players.", image: "badmintonation.png", total_num: 8 },
+    { name: "Gillies Flyers", loc_id: locationsResponse[1]._id, start_time: "Thu 6PM", end_time: "Thu 7PM", level: "Intermediate", team_desc: "Friendly rallies and practice.", image: "badmintonation.png", total_num: 10 },
+    { name: "Gillies Smashers", loc_id: locationsResponse[1]._id, start_time: "Sat 10AM", end_time: "Sat 11AM", level: "Advanced", team_desc: "High-speed matches and drills.", image: "badmintonation.png", total_num: 12 },
 
-    // Basketball (locations 6-8)
-    { name: "CBD Ballers", loc_id: locationsResponse[6]._id, start_time: "Fri 6PM", end_time: "Fri 7PM", level: "Beginner", team_desc: "After-work games", image: "basketball.png", total_num: 10 },
-    { name: "City Slam", loc_id: locationsResponse[6]._id, start_time: "Sun 6PM", end_time: "Sun 7PM", level: "Advanced", team_desc: "City-wide competitions", image: "basketball.png", total_num: 14 },
-    { name: "Henderson Hoopers", loc_id: locationsResponse[7]._id, start_time: "Sat 4PM", end_time: "Sat 5PM", level: "Intermediate", team_desc: "Team for regular pick-up", image: "basketball.png", total_num: 12 },
-    { name: "Henderson Beginners", loc_id: locationsResponse[7]._id, start_time: "Wed 5PM", end_time: "Wed 6PM", level: "Beginner", team_desc: "Social basketball", image: "basketball.png", total_num: 8 }]
+    // 2. Auckland Badminton Stadium - Badminton
+    { name: "Central Starters", loc_id: locationsResponse[2]._id, start_time: "Sun 9AM", end_time: "Sun 10AM", level: "Beginner", team_desc: "Beginner group for casual games.", image: "badmintonation.png", total_num: 6 },
+    { name: "Central Smash", loc_id: locationsResponse[2]._id, start_time: "Sun 10AM", end_time: "Sun 11AM", level: "Intermediate", team_desc: "Sunday fun games every week.", image: "badmintonation.png", total_num: 8 },
+    { name: "Central Blazers", loc_id: locationsResponse[2]._id, start_time: "Sun 11AM", end_time: "Sun 12PM", level: "Advanced", team_desc: "Only for competitive-level players.", image: "badmintonation.png", total_num: 10 },
+
+    // 3. Remuera Rackets Club - Squash
+    { name: "Remuera Rookies", loc_id: locationsResponse[3]._id, start_time: "Mon 5PM", end_time: "Mon 6PM", level: "Beginner", team_desc: "Intro to squash for new players.", image: "squash.png", total_num: 6 },
+    { name: "Remuera Rebels", loc_id: locationsResponse[3]._id, start_time: "Wed 6PM", end_time: "Wed 7PM", level: "Intermediate", team_desc: "Friendly games and weekly practice.", image: "squash.png", total_num: 8 },
+    { name: "Remuera Titans", loc_id: locationsResponse[3]._id, start_time: "Fri 7PM", end_time: "Fri 8PM", level: "Advanced", team_desc: "Fast-paced advanced group matches.", image: "squash.png", total_num: 10 },
+
+    // 4. North Shore Squash Club - Squash
+    { name: "Shore Starters", loc_id: locationsResponse[4]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Relaxed games for learning squash.", image: "squash.png", total_num: 6 },
+    { name: "Shore Strikers", loc_id: locationsResponse[4]._id, start_time: "Thu 6PM", end_time: "Thu 7PM", level: "Intermediate", team_desc: "Build skills and enjoy friendly matches.", image: "squash.png", total_num: 8 },
+    { name: "Shore Masters", loc_id: locationsResponse[4]._id, start_time: "Sat 1PM", end_time: "Sat 2PM", level: "Advanced", team_desc: "Training group for experienced players.", image: "squash.png", total_num: 10 },
+
+    // 5. Eden Epsom Squash Club - Squash
+    { name: "Eden Entry", loc_id: locationsResponse[5]._id, start_time: "Mon 4PM", end_time: "Mon 5PM", level: "Beginner", team_desc: "New players welcome!", image: "squash.png", total_num: 6 },
+    { name: "Eden Eagles", loc_id: locationsResponse[5]._id, start_time: "Wed 5PM", end_time: "Wed 6PM", level: "Intermediate", team_desc: "Weekly group practice session.", image: "squash.png", total_num: 8 },
+    { name: "Eden Elite", loc_id: locationsResponse[5]._id, start_time: "Sat 3PM", end_time: "Sat 4PM", level: "Advanced", team_desc: "Fast games and tournament prep.", image: "squash.png", total_num: 10 },
+
+    // 6. ASB Stadium - Basketball
+    { name: "CBD Ballers", loc_id: locationsResponse[6]._id, start_time: "Fri 6PM", end_time: "Fri 7PM", level: "Beginner", team_desc: "After-work casual games.", image: "basketball.png", total_num: 10 },
+    { name: "CBD Jumpers", loc_id: locationsResponse[6]._id, start_time: "Sun 6PM", end_time: "Sun 7PM", level: "Intermediate", team_desc: "Weekly 5v5 sessions.", image: "basketball.png", total_num: 12 },
+    { name: "CBD Slam", loc_id: locationsResponse[6]._id, start_time: "Wed 8PM", end_time: "Wed 9PM", level: "Advanced", team_desc: "Competitive matches every week.", image: "basketball.png", total_num: 14 },
+
+    // 7. Trusts Arena - Basketball
+    { name: "Henderson Hoopers", loc_id: locationsResponse[7]._id, start_time: "Sat 4PM", end_time: "Sat 5PM", level: "Beginner", team_desc: "Open to all casual players.", image: "basketball.png", total_num: 8 },
+    { name: "Henderson Hustle", loc_id: locationsResponse[7]._id, start_time: "Tue 6PM", end_time: "Tue 7PM", level: "Intermediate", team_desc: "Friendly matches and drills.", image: "basketball.png", total_num: 10 },
+    { name: "Henderson Heat", loc_id: locationsResponse[7]._id, start_time: "Thu 7PM", end_time: "Thu 8PM", level: "Advanced", team_desc: "Serious team play for advanced ballers.", image: "basketball.png", total_num: 12 },
+    
+    // 9. Stanley Street Tennis Centre - Tennis
+    { name: "Windmill Aces", loc_id: locationsResponse[9]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Learn tennis basics and have fun.", image: "tennis.png", total_num: 4 },
+    { name: "Windmill Strikers", loc_id: locationsResponse[9]._id, start_time: "Thu 5PM", end_time: "Thu 6PM", level: "Intermediate", team_desc: "Practice games with light competition.", image: "tennis.png", total_num: 6 },
+
+    // 10. Albany Tennis Park - Tennis
+    { name: "Albany Aces", loc_id: locationsResponse[10]._id, start_time: "Mon 4PM", end_time: "Mon 5PM", level: "Beginner", team_desc: "Casual games for beginners.", image: "tennis.png", total_num: 6 },
+    { name: "Albany Strikers", loc_id: locationsResponse[10]._id, start_time: "Wed 5PM", end_time: "Wed 6PM", level: "Intermediate", team_desc: "Intermediate players welcome.", image: "tennis.png", total_num: 8 },
+
+    // 11. Mission Bay Tennis Club - Tennis
+    { name: "Mission Bay Aces", loc_id: locationsResponse[11]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Casual games for beginners.", image: "tennis.png", total_num: 6 },
+    { name: "Mission Bay Strikers", loc_id: locationsResponse[11]._id, start_time: "Thu 5PM", end_time: "Thu 6PM", level: "Intermediate", team_desc: "Intermediate players welcome.", image: "tennis.png", total_num: 8 },
+
+    // 12. Western Springs Football Club - Football
+    { name: "Te Pai Kickers", loc_id: locationsResponse[12]._id, start_time: "Wed 6PM", end_time: "Wed 7PM", level: "Beginner", team_desc: "Social football for all skill levels.", image: "football.png", total_num: 10 },
+    { name: "Te Pai Strikers", loc_id: locationsResponse[12]._id, start_time: "Sat 4PM", end_time: "Sat 5PM", level: "Advanced", team_desc: "Fast-paced matches for serious players.", image: "football.png", total_num: 14 },
+
+    // 13. North Harbour Stadium - Football
+    { name: "North Harbour Aces", loc_id: locationsResponse[13]._id, start_time: "Tue 6PM", end_time: "Tue 7PM", level: "Beginner", team_desc: "Casual games for beginners.", image: "football.png", total_num: 10 },
+    { name: "North Harbour Strikers", loc_id: locationsResponse[13]._id, start_time: "Thu 7PM", end_time: "Thu 8PM", level: "Intermediate", team_desc: "Intermediate players welcome.", image: "football.png", total_num: 12 },
+
+    // 14. Keith Hay Park - Football
+    { name: "Keith Hay Aces", loc_id: locationsResponse[14]._id, start_time: "Tue 6PM", end_time: "Tue 7PM", level: "Beginner", team_desc: "Casual games for beginners.", image: "football.png", total_num: 10 },
+    { name: "Keith Hay Strikers", loc_id: locationsResponse[14]._id, start_time: "Thu 7PM", end_time: "Thu 8PM", level: "Intermediate", team_desc: "Intermediate players welcome.", image: "football.png", total_num: 12 },
+
+    // 15. Cornwall Park - Running
+    { name: "Cornwall Runners", loc_id: locationsResponse[15]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual running group for beginners.", image: "running.png", total_num: 8 },
+    { name: "Cornwall Strikers", loc_id: locationsResponse[15]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate runners welcome.", image: "running.png", total_num: 10 },
+
+    // 16. Tamaki Drive - Running
+    { name: "Tamaki Runners", loc_id: locationsResponse[16]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual running group for beginners.", image: "running.png", total_num: 8 },
+    { name: "Tamaki Strikers", loc_id: locationsResponse[16]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate runners welcome.", image: "running.png", total_num: 10 },
+
+    // 17. Western Springs Park - Running
+    { name: "Western Springs Runners", loc_id: locationsResponse[17]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual running group for beginners.", image: "running.png", total_num: 8 },
+    { name: "Western Springs Strikers", loc_id: locationsResponse[17]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate runners welcome.", image: "running.png", total_num: 10 },
+
+    // 18. Auckland Golf Club - Golf
+    { name: "Auckland Aces", loc_id: locationsResponse[18]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual golf group for beginners.", image: "golf.png", total_num: 8 },
+    { name: "Auckland Strikers", loc_id: locationsResponse[18]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate golfers welcome.", image: "golf.png", total_num: 10 },
+
+    // 19. North Shore Golf Club - Golf
+    { name: "North Shore Aces", loc_id: locationsResponse[19]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual golf group for beginners.", image: "golf.png", total_num: 8 },
+    { name: "North Shore Strikers", loc_id: locationsResponse[19]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate golfers welcome.", image: "golf.png", total_num: 10 },
+    
+    // 20. Chamberlain Park Golf Course - Golf
+    { name: "Chamberlain Runners", loc_id: locationsResponse[20]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual golf group for beginners.", image: "golf.png", total_num: 8 },
+    { name: "Chamberlain Strikers", loc_id: locationsResponse[20]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate golfers welcome.", image: "golf.png", total_num: 10 },
+    
+    // 21. Parnell Baths - Swimming
+    { name: "Parnell Aces", loc_id: locationsResponse[21]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual swimming group for beginners.", image: "swimming.png", total_num: 8 },
+    { name: "Parnell Strikers", loc_id: locationsResponse[21]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate swimmers welcome.", image: "swimming.png", total_num: 10 },
+
+    // 22. Lloyd Elsmore Pool - Swimming
+    { name: "Lloyd Elsmore Aces", loc_id: locationsResponse[22]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual swimming group for beginners.", image: "swimming.png", total_num: 8 },
+    { name: "Lloyd Elsmore Strikers", loc_id: locationsResponse[22]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate swimmers welcome.", image: "swimming.png", total_num: 10 },
+
+    // 23. Albany Stadium Pool - Swimming
+    { name: "Albany Aces", loc_id: locationsResponse[23]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual swimming group for beginners.", image: "swimming.png", total_num: 8 },
+    { name: "Albany Strikers", loc_id: locationsResponse[23]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate swimmers welcome.", image: "swimming.png", total_num: 10 },   
+
+    // 24. Woodhill Forest - Cycling
+    { name: "Woodhill Aces", loc_id: locationsResponse[24]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual cycling group for beginners.", image: "cycling.png", total_num: 8 },
+    { name: "Woodhill Strikers", loc_id: locationsResponse[24]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate cyclists welcome.", image: "cycling.png", total_num: 10 },
+    
+    // 25. Lightpath - Cycling
+    { name: "Lightpath Aces", loc_id: locationsResponse[25]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual cycling group for beginners.", image: "cycling.png", total_num: 8 },
+    { name: "Lightpath Strikers", loc_id: locationsResponse[25]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate cyclists welcome.", image: "cycling.png", total_num: 10 },
+
+    // 26. Twin Streams - Cycling
+    { name: "Twin Streams Aces", loc_id: locationsResponse[26]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual cycling group for beginners.", image: "cycling.png", total_num: 8 },
+    { name: "Twin Streams Strikers", loc_id: locationsResponse[26]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate cyclists welcome.", image: "cycling.png", total_num: 10 }, 
+
+    // 27. Yoga Ground - Yoga
+    { name: "Yoga Ground Aces", loc_id: locationsResponse[27]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual yoga group for beginners.", image: "yoga.png", total_num: 8 },
+    { name: "Yoga Ground Strikers", loc_id: locationsResponse[27]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate yogis welcome.", image: "yoga.png", total_num: 10 },
+
+    // 28. Om Yoga - Yoga
+    { name: "Om Aces", loc_id: locationsResponse[28]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual yoga group for beginners.", image: "yoga.png", total_num: 8 },
+    { name: "Om Strikers", loc_id: locationsResponse[28]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate yogis welcome.", image: "yoga.png", total_num: 10 },
+    
+    // 29. Eastwest yoga    
+    { name: "Eastwest Aces", loc_id: locationsResponse[29]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual yoga group for beginners.", image: "yoga.png", total_num: 8 },
+    { name: "Eastwest Strikers", loc_id: locationsResponse[29]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate yogis welcome.", image: "yoga.png", total_num: 10 },
+
+    // 30. Gillies Avenue Volleyball
+    { name: "Gillies Aces", loc_id: locationsResponse[30]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual volleyball group for beginners.", image: "volleyball.png", total_num: 8 },
+    { name: "Gillies Strikers", loc_id: locationsResponse[30]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate volleyball players welcome.", image: "volleyball.png", total_num: 10 },   
+
+    // 31. AUT North Volleyball Gym
+    { name: "AUT North Aces", loc_id: locationsResponse[31]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual volleyball group for beginners.", image: "volleyball.png", total_num: 8 },
+    { name: "AUT North Strikers", loc_id: locationsResponse[31]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate volleyball players welcome.", image: "volleyball.png", total_num: 10 },
+
+    // 32. Trusts Arena Volleyball Hall
+    { name: "Trusts Arena Aces", loc_id: locationsResponse[32]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Casual volleyball group for beginners.", image: "volleyball.png", total_num: 8 },
+    { name: "Trusts Arena Strikers", loc_id: locationsResponse[32]._id, start_time: "Wed 7PM", end_time: "Wed 8PM", level: "Intermediate", team_desc: "Intermediate volleyball players welcome.", image: "volleyball.png", total_num: 10 }
+    
+];
+
 const teamsResponse = await Team.insertMany(teams);
 console.log(`Inserted ${teamsResponse.length} teams into the database`);
 
