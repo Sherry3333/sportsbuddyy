@@ -14,12 +14,14 @@ const TeamDetailCom = () => {
   const quitTeam = homeStore((state) => state.quitTeam);
   const joinTeam = homeStore((state) => state.joinTeam);
   const isJoinChange = homeStore((state) => state.isJoinChange);
+  const setIsJoinChange = homeStore((state) => state.setIsJoinChange);
   const [teamMembers, setTeamMembers] = useState([]);
   const onJoinTeam = () => {
     joinTeam(activeCardId)?.then((res) => {
       const newItem = teamList?.find((item) => item?._id === activeCardId);
       const newTeams = addUserTeams({ newItem, teams: myTeamList });
       setUserTeams(newTeams);
+      setIsJoinChange()
       message.success(res?.message ?? "join success!");
     });
   };
@@ -29,6 +31,7 @@ const TeamDetailCom = () => {
       if (res?.code === 200) {
         const newTeams = removeUserTeams({ id: activeCardId, teams: myTeamList });
         setUserTeams(newTeams);
+        setIsJoinChange()
         message.success(res?.message ?? "quit success!");
       }
     });

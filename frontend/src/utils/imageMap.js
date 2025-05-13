@@ -14,21 +14,21 @@ import cyclingImg from "@/assets/img/sports/cycling.png";
 import defaultImg from "@/assets/img/sports/default.png";
 
 const sportImages = {
-  Badminton: badmintonImg,
-  Basketball: basketballImg,
-  Tennis: tennisImg,
-  Football: footballImg,
+  badminton: badmintonImg,
+  basketball: basketballImg,
+  tennis: tennisImg,
+  football: footballImg,
   bicycleImg: bicycleImg,
   crewImg: crewImg,
-  Golf: golfImg,
-  Walking: walkingImg,
-  Yoga: yogaImg,
-  Volleyball: volleyballImg,
-  Swimming: swimmingImg,
-  Running: runningImg,
-  Cycling: cyclingImg,
+  golf: golfImg,
+  walking: walkingImg,
+  yoga: yogaImg,
+  volleyball: volleyballImg,
+  swimming: swimmingImg,
+  running: runningImg,
+  cycling: cyclingImg,
   default: defaultImg,
 };
 
 
-export const getImage = (sport) => sportImages[sport] || sportImages.default;
+export const getImage = (sportName) => sportImages?.[sportName?.toLowerCase()] ?? sportImages.default;

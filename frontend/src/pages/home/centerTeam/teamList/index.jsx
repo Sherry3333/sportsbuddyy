@@ -1,5 +1,6 @@
 import styles from "./index.module.less";
 import classnames from "classnames";
+import { getImage } from "@/utils/imageMap";
 import { homeStore } from "@/domain/home/store/home.store";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import showcase1 from "@/assets/img/showcase4.jpg";
@@ -51,6 +52,8 @@ const TeamListCom = () => {
     setActiveCardId(id); // Set current selected card ID
   };
 
+  const sportName = sports?.[selectIndex]?.name ?? "";
+
   const sliceTeamList = teamList.slice(currentIndex, currentIndex + 3);
   return (
     <div className={classnames([styles.teamListContainer])}>
@@ -72,9 +75,9 @@ const TeamListCom = () => {
             onClick={() => handleCardClick(team._id)}
           >
             <div className={styles.card}>
-              <img src={showcase1} alt={team.sport} className={styles.cardImage} />
+              <img src={getImage(sportName)} alt={team.sport} className={styles.cardImage} />
               <div className={styles.cardContent}>
-                <span className={styles.sportTag}>{sports?.[selectIndex]?.name ?? ""}</span>
+                <span className={styles.sportTag}>{sportName}</span>
                 <p className={styles.address}>
                   {team.name} : {team.team_desc}
                 </p>

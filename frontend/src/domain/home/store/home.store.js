@@ -175,7 +175,7 @@ export const homeStore = create((set, get) => ({
   setActiveCardId: (id) => {
     set({ activeCardId: id });
   },
-  setChangeStatus: () => {
+  setIsJoinChange: () => {
     set({ isJoinChange: !get().isJoinChange });
   }
 }));
