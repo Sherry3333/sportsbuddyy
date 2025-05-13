@@ -1,5 +1,6 @@
 import React from "react";
 import { homeStore } from "@/domain/home/store/home.store";
+import { getArrayLevel } from "@/utils/helper";
 import { Modal, message, Input, Select, DatePicker, Button, InputNumber, Form } from "antd";
 import styles from "./index.module.less";
 
@@ -28,14 +29,6 @@ const CreateTeamModal = () => {
       message.success(res?.message ?? "Create team successfully");
       setModalState(false);
     });
-  };
-
-  const getArrayLevel = (num) => {
-    const arr = [];
-    for (let i = 1; i <= num; i++) {
-      arr.push({ value: `Level ${i}`, label: `Level ${i}` });
-    }
-    return arr;
   };
 
   return (

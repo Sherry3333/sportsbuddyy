@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {getArrayLevel} from "@/utils/helper";
 import { Form, Input, Select, Button, message } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
@@ -52,12 +53,7 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item label="Level" name="level" rules={[{ required: true }]}>
-        <Select className={styles.input_height}>
-          <Option value="beginner">Beginner</Option>
-          <Option value="intermediate">Intermediate</Option>
-          <Option value="advanced">Advanced</Option>
-          <Option value="pro">Pro</Option>
-        </Select>
+        <Select className={styles.input_height} options={getArrayLevel(5)}/>
       </Form.Item>
 
       <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>

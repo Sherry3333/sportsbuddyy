@@ -53,13 +53,27 @@
     display: block;
     clear: both;
   }
+  &.two_card {
+    overflow: hidden;
+    .card_container {
+      float: left;
+      margin-left: 10px;
+      margin-top: 20px;
+    }
+  }
+  &.three_card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .card_container {
+      margin-top: 20px;
+    }
+  }
 }
 
 .card_container {
   width: 268px;
-  float: left;
-  margin-left: 10%;
-  margin-top: 20px;
+
   border-radius: @border-radius;
   transition:
     transform 0.3s ease,

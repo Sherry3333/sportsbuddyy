@@ -21,7 +21,7 @@ export const homeStore = create((set, get) => ({
   addLocLoading: false, // add location loading state
   activeCardId: null, // active card id
   teamDetailUsersList: [], // team detail about users
-
+  isJoinChange:false,// join team change state
   getSportsList: () => {
     return new Promise((resolve, reject) => {
       _getSportsList()
@@ -125,7 +125,12 @@ export const homeStore = create((set, get) => ({
 
   getTeamUsersList: () => {
     const activeCardId = get().activeCardId;
-    if (!activeCardId) return;
+    console.log("activeCardId:",activeCardId)
+    if (!activeCardId){
+      set({ teamDetailUsersList: [] });
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       _getTeamUsersList(activeCardId)
         .then((res) => {
@@ -170,4 +175,7 @@ export const homeStore = create((set, get) => ({
   setActiveCardId: (id) => {
     set({ activeCardId: id });
   },
+  setChangeStatus: () => {
+    set({ isJoinChange: !get().isJoinChange });
+  }
 }));

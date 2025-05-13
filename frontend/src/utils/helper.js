@@ -35,3 +35,11 @@ export const decodeToken = (token) => {
     return null;
   }
 };
+
+export const getArrayLevel = (num) => {
+    const arr = [];
+    for (let i = 1; i <= num; i++) {
+      arr.push({ value: `Level ${i}`, label: `Level ${i}` });
+    }
+    return arr;
+  };

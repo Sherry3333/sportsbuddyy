@@ -22,6 +22,7 @@ const TeamListCom = () => {
   useEffect(() => {
     getTeamList()?.then(() => {
       setCurrentIndex(0);
+      setActiveCardId(null);// Reset active card ID
     });
   }, [selectLocId]);
 
@@ -50,8 +51,9 @@ const TeamListCom = () => {
     setActiveCardId(id); // Set current selected card ID
   };
 
+  const sliceTeamList = teamList.slice(currentIndex, currentIndex + 3);
   return (
-    <div className={styles.teamListContainer}>
+    <div className={classnames([styles.teamListContainer])}>
       <div className={styles.header}>
         <div className={styles.title}>Team List</div>
         <div className={styles.navigation}>
@@ -59,8 +61,8 @@ const TeamListCom = () => {
           <RightCircleOutlined className={styles.icon} onClick={handleRightClick} />
         </div>
       </div>
-      <div className={`${styles.teamCards} ${styles.clearfix} ${fadeClass}`}>
-        {teamList.slice(currentIndex, currentIndex + 3).map((team) => (
+      <div className={`${styles.teamCards} ${styles.clearfix} ${fadeClass} ${sliceTeamList.length === 2 ? styles.two_card : styles.three_card}`}>
+        {sliceTeamList.map((team) => (
           <div
             className={classnames([
               styles.card_container,

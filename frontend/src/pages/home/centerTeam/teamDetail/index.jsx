@@ -13,6 +13,7 @@ const TeamDetailCom = () => {
   const myTeamList = userStore((state) => state.userTeams);
   const quitTeam = homeStore((state) => state.quitTeam);
   const joinTeam = homeStore((state) => state.joinTeam);
+  const isJoinChange = homeStore((state) => state.isJoinChange);
   const [teamMembers, setTeamMembers] = useState([]);
   const onJoinTeam = () => {
     joinTeam(activeCardId)?.then((res) => {
@@ -76,7 +77,7 @@ const TeamDetailCom = () => {
     getTeamUsersList()?.then((res) => {
       setTeamMembers(res?.data?.members ?? []);
     });
-  }, [activeCardId]);
+  }, [activeCardId,isJoinChange]);
 
   const getIsJoined = () => {
     const res = myTeamList?.some((item) => item?.id === activeCardId);
