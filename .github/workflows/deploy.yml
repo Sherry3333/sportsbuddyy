@@ -40,7 +40,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: npm install
+        run: npm ci
 
 
       - name: Log in to Docker Hub
@@ -68,7 +68,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./backend
-        run: npm install
+        run: npm ci
 
       - name: Run backend tests
         working-directory: ./backend
