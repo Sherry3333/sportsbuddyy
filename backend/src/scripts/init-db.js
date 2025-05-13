@@ -77,18 +77,18 @@ const teams = [
     { name: "Central Smash", loc_id: locationsResponse[2]._id, start_time: "Sun 10AM", end_time: "Sun 11AM", level: "Beginner", team_desc: "Newcomer friendly", image: "badmintonation.png", total_num: 6 },
 
     // Squash (locations 3-5)
-    { name: "Remuera Rookies", loc_id: locationsResponse[3]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Intro to squash", image: "remuera-rookies.jpg", total_num: 6 },
-    { name: "Remuera Kings", loc_id: locationsResponse[3]._id, start_time: "Fri 5PM", end_time: "Fri 6PM", level: "Advanced", team_desc: "Strong competition group", image: "remuera-kings.jpg", total_num: 10 },
-    { name: "Shore Smashers", loc_id: locationsResponse[4]._id, start_time: "Wed 6PM", end_time: "Wed 7PM", level: "Intermediate", team_desc: "Regular game night", image: "shore-smashers.jpg", total_num: 8 },
-    { name: "Shore Warriors", loc_id: locationsResponse[4]._id, start_time: "Sun 4PM", end_time: "Sun 5PM", level: "Beginner", team_desc: "Fun and social play", image: "shore-warriors.jpg", total_num: 8 },
-    { name: "Eden Elite", loc_id: locationsResponse[5]._id, start_time: "Sat 11AM", end_time: "Sat 12PM", level: "Advanced", team_desc: "Only for serious players", image: "eden-elite.jpg", total_num: 10 },
-    { name: "Eden Learners", loc_id: locationsResponse[5]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Learning basics", image: "eden-learners.jpg", total_num: 6 },
+    { name: "Remuera Rookies", loc_id: locationsResponse[3]._id, start_time: "Mon 6PM", end_time: "Mon 7PM", level: "Beginner", team_desc: "Intro to squash", image: "default.png", total_num: 6 },
+    { name: "Remuera Kings", loc_id: locationsResponse[3]._id, start_time: "Fri 5PM", end_time: "Fri 6PM", level: "Advanced", team_desc: "Strong competition group", image: "default.png", total_num: 10 },
+    { name: "Shore Smashers", loc_id: locationsResponse[4]._id, start_time: "Wed 6PM", end_time: "Wed 7PM", level: "Intermediate", team_desc: "Regular game night", image: "default.png", total_num: 8 },
+    { name: "Shore Warriors", loc_id: locationsResponse[4]._id, start_time: "Sun 4PM", end_time: "Sun 5PM", level: "Beginner", team_desc: "Fun and social play", image: "default.png", total_num: 8 },
+    { name: "Eden Elite", loc_id: locationsResponse[5]._id, start_time: "Sat 11AM", end_time: "Sat 12PM", level: "Advanced", team_desc: "Only for serious players", image: "default.png", total_num: 10 },
+    { name: "Eden Learners", loc_id: locationsResponse[5]._id, start_time: "Tue 4PM", end_time: "Tue 5PM", level: "Beginner", team_desc: "Learning basics", image: "default.png", total_num: 6 },
 
     // Basketball (locations 6-8)
-    { name: "CBD Ballers", loc_id: locationsResponse[6]._id, start_time: "Fri 6PM", end_time: "Fri 7PM", level: "Beginner", team_desc: "After-work games", image: "cbd-ballers.jpg", total_num: 10 },
-    { name: "City Slam", loc_id: locationsResponse[6]._id, start_time: "Sun 6PM", end_time: "Sun 7PM", level: "Advanced", team_desc: "City-wide competitions", image: "city-slam.jpg", total_num: 14 },
-    { name: "Henderson Hoopers", loc_id: locationsResponse[7]._id, start_time: "Sat 4PM", end_time: "Sat 5PM", level: "Intermediate", team_desc: "Team for regular pick-up", image: "henderson-hoopers.jpg", total_num: 12 },
-    { name: "Henderson Beginners", loc_id: locationsResponse[7]._id, start_time: "Wed 5PM", end_time: "Wed 6PM", level: "Beginner", team_desc: "Social basketball", image: "henderson-beginners.jpg", total_num: 8 }]
+    { name: "CBD Ballers", loc_id: locationsResponse[6]._id, start_time: "Fri 6PM", end_time: "Fri 7PM", level: "Beginner", team_desc: "After-work games", image: "basketball.png", total_num: 10 },
+    { name: "City Slam", loc_id: locationsResponse[6]._id, start_time: "Sun 6PM", end_time: "Sun 7PM", level: "Advanced", team_desc: "City-wide competitions", image: "basketball.png", total_num: 14 },
+    { name: "Henderson Hoopers", loc_id: locationsResponse[7]._id, start_time: "Sat 4PM", end_time: "Sat 5PM", level: "Intermediate", team_desc: "Team for regular pick-up", image: "basketball.png", total_num: 12 },
+    { name: "Henderson Beginners", loc_id: locationsResponse[7]._id, start_time: "Wed 5PM", end_time: "Wed 6PM", level: "Beginner", team_desc: "Social basketball", image: "basketball.png", total_num: 8 }]
 const teamsResponse = await Team.insertMany(teams);
 console.log(`Inserted ${teamsResponse.length} teams into the database`);
 
