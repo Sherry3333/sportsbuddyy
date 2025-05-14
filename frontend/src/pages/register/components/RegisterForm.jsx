@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import {getArrayLevel} from "@/utils/helper";
+import React, { useState, useEffect } from "react";
+import { getArrayLevel } from "@/utils/helper";
 import { Form, Input, Select, Button, message } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
 import styles from "../index.module.less";
+import { homeStore } from "@/domain/home/store/home.store";
 
 const { Option } = Select;
 
 const RegisterForm = () => {
+  const sports = homeStore((state) => state.sports);
+  const getSportsList = homeStore((state) => state.getSportsList);
   const registerUser = userStore((state) => state.userRegister);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getSportsList();
+  }, []);
 
   const onFinish = (values) => {
     setLoading(true);
@@ -44,16 +51,22 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item label="Sport" name="sports" rules={[{ required: true }]}>
-        <Select className={styles.input_height}>
-          <Option value="tennis">Tennis</Option>
-          <Option value="badminton">Badminton</Option>
-          <Option value="football">Football</Option>
-          <Option value="basketball">Basketball</Option>
+        <Select
+          className={styles.input_height}
+          placeholder="Select a sport"
+          loading={!sports || sports.length === 0}
+        >
+          {sports &&
+            sports.map((sport) => (
+              <Option key={sport._id} value={sport._id}>
+                {sport.name}
+              </Option>
+            ))}
         </Select>
       </Form.Item>
 
       <Form.Item label="Level" name="level" rules={[{ required: true }]}>
-        <Select className={styles.input_height} options={getArrayLevel(5)}/>
+        <Select className={styles.input_height} options={getArrayLevel(5)} />
       </Form.Item>
 
       <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
