@@ -4,34 +4,19 @@ import { Form, Input, Select, Button, message } from "antd";
 import { userStore } from "@/domain/user/store/user.store";
 import { useNavigate } from "react-router-dom";
 import styles from "../index.module.less";
-import { _getSportsList } from "@/domain/home/repository/home.repository";
+import { homeStore } from "@/domain/home/store/home.store";
 
 const { Option } = Select;
 
 const RegisterForm = () => {
+  const sports = homeStore((state) => state.sports);
+  const getSportsList = homeStore((state) => state.getSportsList);
   const registerUser = userStore((state) => state.userRegister);
   const [loading, setLoading] = useState(false);
-  const [sports, setSports] = useState([]);
-  const [sportsLoading, setSportsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSportsLoading(true);
-    _getSportsList()
-      .then((res) => {
-        if (res.code === 200 && Array.isArray(res.data)) {
-          setSports(res.data);
-        } else {
-          message.error("Invalid sports data format");
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch sports:", error);
-        message.error("Failed to load sports list");
-      })
-      .finally(() => {
-        setSportsLoading(false);
-      });
+    getSportsList();
   }, []);
 
   const onFinish = (values) => {
@@ -68,14 +53,15 @@ const RegisterForm = () => {
       <Form.Item label="Sport" name="sports" rules={[{ required: true }]}>
         <Select
           className={styles.input_height}
-          loading={sportsLoading}
           placeholder="Select a sport"
+          loading={!sports || sports.length === 0}
         >
-          {sports.map((sport) => (
-            <Option key={sport._id} value={sport._id}>
-              {sport.name}
-            </Option>
-          ))}
+          {sports &&
+            sports.map((sport) => (
+              <Option key={sport._id} value={sport._id}>
+                {sport.name}
+              </Option>
+            ))}
         </Select>
       </Form.Item>
 
