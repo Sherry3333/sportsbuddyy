@@ -134,7 +134,7 @@ export const homeStore = create((set, get) => ({
     return new Promise((resolve, reject) => {
       _getTeamUsersList(activeCardId)
         .then((res) => {
-          set({ teamDetailUsersList: res.data });
+          set({ teamDetailUsersList: res?.data?.members ?? [] });
           resolve(res);
         })
         .catch((error) => {
@@ -175,7 +175,4 @@ export const homeStore = create((set, get) => ({
   setActiveCardId: (id) => {
     set({ activeCardId: id });
   },
-  setIsJoinChange: () => {
-    set({ isJoinChange: !get().isJoinChange });
-  }
 }));

@@ -3,7 +3,6 @@ import classnames from "classnames";
 import { getImage } from "@/utils/imageMap";
 import { homeStore } from "@/domain/home/store/home.store";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
-import showcase1 from "@/assets/img/showcase4.jpg";
 import profileLogo from "@/assets/img/profile_logo.png";
 import PeopleCom from "./people";
 import { useEffect, useState } from "react";

@@ -1,39 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./index.module.less";
 import { userStore } from "@/domain/user/store/user.store";
 import { homeStore } from "@/domain/home/store/home.store";
 import profileAvatar from "@/assets/img/profile_logo.png";
-import { removeUserTeams, addUserTeams } from "@/domain/user/mapper/user.mapper";
 import { Button, Table, Avatar, Tag, message } from "antd";
 const TeamDetailCom = () => {
   const teamList = homeStore((state) => state.teamList);
-  const setUserTeams = userStore((state) => state.setUserTeams);
+  const teamDetailUsersList = homeStore((state) => state.teamDetailUsersList);
   const getTeamUsersList = homeStore((state) => state.getTeamUsersList);
   const activeCardId = homeStore((state) => state.activeCardId);
   const myTeamList = userStore((state) => state.userTeams);
   const quitTeam = homeStore((state) => state.quitTeam);
   const joinTeam = homeStore((state) => state.joinTeam);
-  const isJoinChange = homeStore((state) => state.isJoinChange);
-  const setIsJoinChange = homeStore((state) => state.setIsJoinChange);
-  const [teamMembers, setTeamMembers] = useState([]);
+  const getMyTeamList = userStore((state) => state.getMyTeamList);
   const onJoinTeam = () => {
     joinTeam(activeCardId)?.then((res) => {
-      const newItem = teamList?.find((item) => item?._id === activeCardId);
-      const newTeams = addUserTeams({ newItem, teams: myTeamList });
-      setUserTeams(newTeams);
-      setIsJoinChange()
+      getTeamUsersList();
+      getMyTeamList();
       message.success(res?.message ?? "join success!");
     });
   };
 
   const onQuitTeam = () => {
     quitTeam(activeCardId)?.then((res) => {
-      if (res?.code === 200) {
-        const newTeams = removeUserTeams({ id: activeCardId, teams: myTeamList });
-        setUserTeams(newTeams);
-        setIsJoinChange()
+      getTeamUsersList();
+       getMyTeamList();
         message.success(res?.message ?? "quit success!");
-      }
     });
   };
   const columns = [
@@ -77,14 +69,13 @@ const TeamDetailCom = () => {
   ];
 
   useEffect(() => {
-    getTeamUsersList()?.then((res) => {
-      setTeamMembers(res?.data?.members ?? []);
-    });
-  }, [activeCardId,isJoinChange]);
+    getTeamUsersList();
+  }, [activeCardId]);
 
   const getIsJoined = () => {
-    const res = myTeamList?.some((item) => item?.id === activeCardId);
-    return res;
+    const flag = myTeamList?.some((item) => item?.id === activeCardId);
+    console.log("res:",flag)
+    return flag;
   };
 
   return (
@@ -108,11 +99,10 @@ const TeamDetailCom = () => {
       </div>
       <div className={styles.tableContainer}>
         <Table
-          dataSource={teamMembers}
+          dataSource={teamDetailUsersList}
           columns={columns}
           pagination={false}
           className={styles.table}
-          scroll={{ y: "calc(100vh - 500px)" }}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import badmintonImg from "@/assets/img/sports/badminton.png";
+import badmintonImg from "@/assets/img/sports/badminton.jpg";
 import basketballImg from "@/assets/img/sports/basketball.png";
 import tennisImg from "@/assets/img/sports/tennis.png";
 import footballImg from "@/assets/img/sports/football.png";
