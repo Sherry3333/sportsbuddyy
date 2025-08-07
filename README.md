@@ -1,72 +1,134 @@
-# CS732 project - Team Iridescent Impalas
+# SportsBuddy
 
-## Navigate to your workspace directory. For example: 
-`cd  C:\Hisky\workspace\732.`
-Or use:
-`cd YOUR_WORKSPACE`
+A full-stack web application for connecting sports enthusiasts and organizing team activities. Built with React frontend, Node.js backend, and MongoDB database.
 
-## Open Terminal or Powershell and type.
-`git clone https://github.com/UOA-CS732-S1-2025/group-project-iridescent-impalas`
-If you have installed Git successfully, you will see Git downloading the project on your machine. 
+## 🌐 Live Demo
 
-## Navigate into the project folder:
-`cd .\group-project-iridescent-impalas\`
+**Live Application**: [http://13.211.191.173:5174/](http://13.211.191.173:5174/)  
+**API Documentation**: [http://13.211.191.173:5001/api-docs](http://13.211.191.173:5001/api-docs)
 
-## Check your local branches
-`git branch`
+## 🏗️ Tech Stack
 
-## Check the remote branches
-`git branch -r`
+### Frontend
+- React 18 with Vite
+- Ant Design UI Library
+- Zustand State Management
+- React Router DOM
+- Less CSS
 
-## Swtich the git branch
-`git switch HX732-14-hisky.yang`
+### Backend
+- Node.js with Express.js
+- MongoDB with Mongoose ODM
+- JWT Authentication
+- Swagger/OpenAPI Documentation
 
-## To initialize the backend on your local machine, run the following command:
+### Infrastructure
+- Docker & Docker Compose
+- GitHub Actions CI/CD
+- AWS EC2 Deployment
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v18 or higher)
+- Docker & Docker Compose
+
+### Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Sherry3333/SportsBuddy
+   cd SportsBuddy
+   ```
+
+2. **Start with Docker (Recommended)**
+   ```bash
+   docker compose up
+   ```
+   Access the application at http://localhost:3000
+
+3. **Manual Setup**
+   ```bash
+   # Backend
+   cd backend
+   npm install
+   npm run init-db
+   npm run dev
+
+   # Frontend (new terminal)
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+## 🧪 Testing
+
+```bash
+# Backend tests
+cd backend && npm test
+
+# Frontend tests
+cd frontend && npm test
 ```
-cd backend
-npm install
-npm run init-db
+
+## 🔄 CI/CD Pipeline
+
+Automated deployment using GitHub Actions:
+- **Trigger**: Push to `main` branch
+- **Build**: Node.js setup and dependency installation
+- **Test**: Automated testing for backend
+- **Deploy**: Build Docker images and deploy to AWS EC2
+
+## 👨‍💻 My Contributions
+
+### Backend Development & DevOps
+
+- **Backend API Development**
+  - RESTful APIs using Express.js
+  - MongoDB schemas with Mongoose
+  - JWT authentication and authorization
+  - Swagger/OpenAPI documentation
+  - API response middleware
+
+- **Database Design & Management**
+  - MongoDB schemas for Users, Teams, Sports, and Locations
+  - Database initialization scripts
+  - Data validation and error handling
+
+- **CI/CD Pipeline Implementation**
+  - GitHub Actions workflow for automated deployment
+  - Docker containerization for frontend and backend
+  - Path-based deployment triggers
+  - Automated testing integration
+
+- **AWS EC2 Deployment & Infrastructure**
+  - AWS EC2 instance configuration
+  - Docker Hub integration
+  - Automated deployment from GitHub
+  - Environment variables and secrets management
+
+**Technologies**: Node.js, Express.js, MongoDB, Mongoose, JWT, Docker, GitHub Actions, AWS EC2
+
+## 📁 Project Structure
+
+```
+SportsBuddy/
+├── frontend/                 # React application
+│   ├── src/
+│   │   ├── pages/           # Page components
+│   │   ├── domain/          # Business logic
+│   │   └── assets/          # Static assets
+│   └── Dockerfile
+├── backend/                  # Node.js API
+│   ├── src/
+│   │   ├── routes/          # API routes
+│   │   ├── data/            # Database schemas
+│   │   └── middleware/      # Express middleware
+│   └── Dockerfile
+├── .github/workflows/        # CI/CD
+└── docker-compose.yml        # Multi-container setup
 ```
 
-The terminal should display:
+## 📝 License
 
-```
-Connected to database
-Inserted 5 users into the database
-Disconnected from database
-```
-
-## Switch to the main branch:
-`git checkout main`
-
-## Pull the latest changes from the remote main branch (if applicable):
-`git pull origin main`
-
-## Merge the dev branch into main:
-`git merge HX732-14-hisky`
-
-Resolve any merge conflicts (if they occur):
-Open the conflicting files.
-Edit the files to resolve conflicts.
-Mark conflicts as resolved:
-`git add <file>`
-
-## Commit the merge (if conflicts were resolved manually):
-`git commit -m "Merge from main"`
-
-# Create a new branch from main
-`git checkout main`
-`git pull origin main`
-`git checkout -b HX732-15.jinbo`
-
-# Push the updated dev branch to the remote repository:
-`git push origin HX732-15.jinbo`
-
-# Delete your local branch
-`git branch -d HX732-15.jinbo`
-
-# Delete remote branch after it's merged to main
-`git push origin --delete HX732-15.jinbo`
-
-# Start up by docker, make sure you install docker hub in advance
-`docker compose up`
+This project is part of CS732 coursework at the University of Auckland.
