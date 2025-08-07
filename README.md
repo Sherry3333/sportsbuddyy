@@ -79,6 +79,10 @@ Automated deployment using GitHub Actions:
 - **Test**: Automated testing for backend
 - **Deploy**: Build Docker images and deploy to AWS EC2
 
+## 👥 Team
+
+This project was developed as a collaborative effort by the SportsBuddy team. All contributors are listed in the repository's contributors section.
+
 ## 👨‍💻 My Contributions
 
 ### Backend Development & DevOps
